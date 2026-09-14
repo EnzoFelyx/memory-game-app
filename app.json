@@ -8,7 +8,9 @@
     "scheme": "memorygameapp",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.memory-game-app",
+      "appleTeamId": "8T52SZS49C"
     },
     "android": {
       "adaptiveIcon": {
