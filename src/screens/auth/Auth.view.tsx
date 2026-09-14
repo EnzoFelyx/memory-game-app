@@ -1,7 +1,9 @@
+import { usePressAnimation } from "@/animations/hooks/usePressAnimation"
 import { colors, gradients } from "@/styles/colors"
 import { LinearGradient } from "expo-linear-gradient"
 import { FC } from "react"
 import { Image, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
+import Animated from "react-native-reanimated"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useAuthViewModel } from "./useAuth.viewModel"
 
@@ -10,6 +12,8 @@ export const LoginView: FC<ReturnType<typeof useAuthViewModel>> = ({
     setUserName,
     userName
 }) => {
+
+    const handleSubmitPressAnimation = usePressAnimation()
 
     return (
         <SafeAreaView style={styles.container}>
@@ -47,23 +51,28 @@ export const LoginView: FC<ReturnType<typeof useAuthViewModel>> = ({
                         />
 
                         <View style={styles.buttonGlow}>
-                            <LinearGradient
-                                colors={gradients.colorful}
-                                start={{ x: 0, y: 0 }}
-                                end={{ x: 1, y: 2 }}
-                                style={styles.buttonGradient}
+                            <Animated.View
+                                style={handleSubmitPressAnimation.animatedStyles}
                             >
-                                <TouchableOpacity
-                                    onPress={handleSubmmit}
-                                    style={styles.button}
+                                <LinearGradient
+                                    colors={gradients.colorful}
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 1, y: 2 }}
+                                    style={styles.buttonGradient}
                                 >
-                                    <Text style={styles.buttonText}>Entrar</Text>
-                                </TouchableOpacity>
-                            </LinearGradient>
+                                    <TouchableOpacity
+                                        onPressIn={handleSubmitPressAnimation.onPressIn}
+                                        onPressOut={handleSubmitPressAnimation.onPressOut}
+                                        onPress={handleSubmmit}
+                                        style={styles.button}
+                                    >
+                                        <Text style={styles.buttonText}>Entrar</Text>
+                                    </TouchableOpacity>
+                                </LinearGradient>
+
+                            </Animated.View>
                         </View>
-
                     </View>
-
                 </View>
             </KeyboardAvoidingView>
         </SafeAreaView >

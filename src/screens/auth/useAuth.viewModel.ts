@@ -9,6 +9,7 @@ export const useAuthViewModel = () => {
     const { setAuthenticated } = useAuthStore()
 
     const handleSubmmit = () => {
+        if (!userName.length) return
         setAuthenticated(userName)
         router.replace("/(private)/home")
     }
