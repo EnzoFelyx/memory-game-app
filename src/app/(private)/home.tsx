@@ -1,10 +1,10 @@
-import { Text, View } from "react-native"
+
+import { HomeView } from "@/screens/home/Home.view"
+import { useHomeViewModel } from "@/screens/home/useHome.viewModel"
 
 export default function Home() {
 
-    return (
-        <View>
-            <Text>Tela de Home</Text>
-        </View>
-    )
+    const viewModel = useHomeViewModel()
+
+    return <HomeView {...viewModel} />
 }
