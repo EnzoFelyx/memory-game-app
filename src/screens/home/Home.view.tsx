@@ -1,8 +1,8 @@
-import { Text } from "@/components/Text"
 import { colors } from "@/styles/colors"
 import { FC } from "react"
 import { StyleSheet, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
+import { ChallengerList } from "./components/ChallengerList"
 import { DiffSelections } from "./components/DiffSelection"
 import { HomeHeader } from "./components/HomeHeader"
 import { useHomeViewModel } from "./useHome.viewModel"
@@ -16,7 +16,7 @@ export const HomeView: FC<ReturnType<typeof useHomeViewModel>> = ({
             <View style={styles.content}>
                 <HomeHeader />
                 <DiffSelections />
-                <Text>Home</Text>
+                <ChallengerList />
             </View>
         </SafeAreaView>
     )
