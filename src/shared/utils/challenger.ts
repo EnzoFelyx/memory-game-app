@@ -30,7 +30,7 @@ export interface Challenge {
 export interface GameState {
   status: GameStatus
   challenge: Challenge | null
-  selectedCards: CardItem[]
+  selectedCards: StoreCard[]
   timeRemaing: number
   timeElapsed: number
   startedAt: Date | null
