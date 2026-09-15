@@ -1,16 +1,17 @@
 import { Text } from "@/components/Text"
-import { getDiffColor } from "@/shared/utils/diff"
 import { colors } from "@/styles/colors"
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { FC } from "react"
-import { Pressable, StyleSheet, View } from "react-native"
-import { DiffIcon } from "./DiffIcon"
+import { StyleSheet, View } from "react-native"
+import Animated from "react-native-reanimated"
+import { DiffTab } from "./DiffTab"
 import { useDiffSelectionsViewModel } from "./useDiffSelections.viewModel"
 
 export const DiffSelectionsView: FC<ReturnType<typeof useDiffSelectionsViewModel>> = ({
     difficulties,
     selectedDiff,
-    setSelectedDiff
+    setSelectedDiff,
+    animatedIndicatorStyle
 }) => {
 
     return (
@@ -20,7 +21,7 @@ export const DiffSelectionsView: FC<ReturnType<typeof useDiffSelectionsViewModel
                 <View style={styles.timeIndicator}>
                     <MaterialCommunityIcons
                         name="clock-outline"
-                        color={colors.accent.green}
+                        color={colors.feedback.info}
                         size={16}
                     />
                     <Text>5 min</Text>
@@ -28,29 +29,22 @@ export const DiffSelectionsView: FC<ReturnType<typeof useDiffSelectionsViewModel
             </View>
 
             <View style={styles.difficultyTabs}>
-                {difficulties.map((diff, i) => (
-                    <Pressable
-                        onPress={() => setSelectedDiff(diff)}
-                        style={[styles.difficultyTab]}
-                        key={`diff-key${i}`}
-                    >
-                        <View style={styles.difficultyBadge}>
-                            <DiffIcon
-                                diff={diff}
-                                color={getDiffColor(diff)}
-                                inactiveColor={colors.grayscale.gray200}
-                                isSelected={selectedDiff === diff}
-                            />
-                        </View>
-                        <Text>{diff}</Text>
-                    </Pressable>
+                <Animated.View style={[styles.indicator, animatedIndicatorStyle]} />
+                {difficulties.map((difficulty, index) => (
+                    <DiffTab
+                        key={`difficulty-key-${difficulty}`}
+                        difficulty={difficulty}
+                        index={index}
+                        SelectedDiff={selectedDiff}
+                        setSelectedDiff={setSelectedDiff}
+                    />
                 ))}
             </View>
         </View>
     )
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
     difficultySection: {
         marginBottom: 24,
     },
@@ -81,22 +75,17 @@ const styles = StyleSheet.create({
         borderColor: colors.grayscale.gray400,
         borderWidth: 1,
     },
-    difficultyTab: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: 12,
+    indicator: {
+        position: 'absolute',
+        width: '33.33%',
+        top: 4,
+        zIndex: 0,
         borderRadius: 100,
-        gap: 2,
-        zIndex: 1,
-    },
-    difficultyBadge: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 8,
-        padding: 8,
-        borderRadius: '50%',
+        left: 0,
+        bottom: 4,
+        backgroundColor: colors.grayscale.gray500,
+        borderColor: colors.grayscale.gray400,
+        borderWidth: 1,
+        marginLeft: 4,
     },
 })

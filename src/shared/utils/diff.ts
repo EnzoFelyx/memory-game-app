@@ -2,7 +2,7 @@ import { colors } from "@/styles/colors";
 import { Difficulty } from "../interfaces/difficulty";
 
 const diffColors: Record<Difficulty, string> = {
-    "Fácil": colors.semantic.success,
+    "Fácil": colors.feedback.info,
     "Médio": colors.semantic.warning,
     "Difícil": colors.semantic.error
 }
