@@ -28,6 +28,8 @@ export const ChallengerCard: FC<ChallengeTheme> = ({
             <Animated.View style={pressAnimation.animatedStyles}>
                 <Pressable
                     style={styles.content}
+                    onPressIn={pressAnimation.onPressIn}
+                    onPressOut={pressAnimation.onPressOut}
                 >
                     <Text style={styles.title}>{title}</Text>
                     <View style={[styles.icon, { backgroundColor: arrowColor }]}>

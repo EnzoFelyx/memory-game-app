@@ -21,7 +21,7 @@ export const HomeHeader = () => {
             <View style={styles.headerContent}>
                 <View style={styles.headerLeft}>
                     <View>
-                        <Text style={styles.greeting}>Boas vindas, {user?.name}</Text>
+                        <Text style={styles.greeting}>Bem vindo, {user?.name}!</Text>
                         <Text style={styles.subTitle}>Comece a jogar selecionando os desafios abaixo</Text>
                     </View>
                 </View>
@@ -46,7 +46,7 @@ export const HomeHeader = () => {
 
 const styles = StyleSheet.create({
     header: {
-        paddingTop: 60,
+        paddingTop: 20,
         paddingBottom: 20,
     },
     headerContent: {

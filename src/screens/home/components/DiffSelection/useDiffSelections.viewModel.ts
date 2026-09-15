@@ -15,8 +15,8 @@ export const useDiffSelectionsViewModel = () => {
     useEffect(() => {
         const newIndex = difficulties.indexOf(selectedDiff)
         translateX.value = withSpring(newIndex * 100, {
-            damping: 50,
-            stiffness: 240,
+            damping: 65,
+            stiffness: 400,
         })
     }, [selectedDiff, difficulties, translateX])
 

@@ -1,19 +1,47 @@
+import { colors, gradients } from "@/styles/colors"
 import { ImageSourcePropType } from "react-native"
+import { Difficulty } from "../interfaces/difficulty"
 
 export interface CardItem {
-    name: string
-    image?: ImageSourcePropType
+  name: string
+  image?: ImageSourcePropType
 }
 
 export interface ChallengeTheme {
-    id: string
-    title: string
-    cards: CardItem[]
-    gradient?: [string, string]
-    arrowColor?: string
+  id: string
+  title: string
+  cards: CardItem[]
+  gradient?: [string, string]
+  arrowColor?: string
 }
 
-import { colors, gradients } from "@/styles/colors"
+export type GameStatus = 'idle' | 'countdown' | 'playing' | 'finished' | 'timeout'
+
+export interface Challenge {
+  id: string
+  title: string
+  difficulty: Difficulty
+  estimedTime: string
+  timeLimit: number
+  cards: CardItem[]
+  gradient?: [string, string]
+}
+
+export interface GameState {
+  status: GameStatus
+  challenge: Challenge | null
+  selectedCards: CardItem[]
+  timeRemaing: number
+  timeElapsed: number
+  startedAt: Date | null
+  cards: StoreCard[]
+}
+
+export interface GameResult {
+  completed: boolean
+  timeElapsed: number
+  challenge: Challenge
+}
 
 export const challengeTheme: ChallengeTheme[] = [
   {
@@ -74,3 +102,9 @@ export const challengeTheme: ChallengeTheme[] = [
     arrowColor: colors.accent.cyan,
   },
 ]
+
+export interface StoreCard extends CardItem {
+  id: string
+  isFlipped: boolean
+  isMatched: boolean
+}
