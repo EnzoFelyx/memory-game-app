@@ -573,6 +573,11 @@
     "@babel/helper-string-parser" "^7.29.7"
     "@babel/helper-validator-identifier" "^7.29.7"
 
+"@expo-google-fonts/baloo-2@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/baloo-2/-/baloo-2-0.4.2.tgz#e63212c7ad45e40e57c8b1886b5c2d4cb9cd74fe"
+  integrity sha512-uvrw1I+sP72PY8xROJQ6CMiGHu9+WJCdi72Q+OiWpQ3sKsIRyIEXimDfgUnkk2vpWVej0JX9fLc87iDmjKE86A==
+
 "@expo-google-fonts/material-symbols@^0.4.1":
   version "0.4.47"
   resolved "https://registry.yarnpkg.com/@expo-google-fonts/material-symbols/-/material-symbols-0.4.47.tgz#83896099cd42481e58466f1b564e3b8dd1dd7ab7"
@@ -947,6 +952,11 @@
   dependencies:
     sf-symbols-typescript "^2.1.0"
     vaul "^1.1.2"
+
+"@expo/vector-icons@^15.0.2":
+  version "15.1.1"
+  resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-15.1.1.tgz#4b1d2c60493c0b0536972f0a5babd5f5c85b48f4"
+  integrity sha512-Iu2VkcoI5vygbtYngm7jb4ifxElNVXQYdDrYkT7UCEIiKLeWnQY0wf2ZhHZ+Wro6Sc5TaumpKUOqDRpLi5rkvw==
 
 "@expo/ws-tunnel@^2.0.0":
   version "2.0.0"

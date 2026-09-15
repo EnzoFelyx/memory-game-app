@@ -1,9 +1,10 @@
 import { useInputAnimation } from "@/animations/hooks/useInputAnimation"
 import { usePressAnimation } from "@/animations/hooks/usePressAnimation"
+import { Text } from "@/components/Text"
 import { colors, gradients } from "@/styles/colors"
 import { LinearGradient } from "expo-linear-gradient"
 import { FC } from "react"
-import { Image, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
+import { Image, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
 import Animated from "react-native-reanimated"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useAuthViewModel } from "./useAuth.viewModel"
@@ -115,11 +116,12 @@ const styles = StyleSheet.create({
         fontSize: 28,
         color: colors.grayscale.gray100,
         fontWeight: "bold",
-        marginBottom: 8
+        marginBottom: 8,
+        fontFamily: "Baloo2_800ExtraBold"
     },
     subtitle: {
         fontSize: 16,
-        color: colors.grayscale.gray200
+        color: colors.grayscale.gray200,
     },
     formContainer: {
         width: "100%",
