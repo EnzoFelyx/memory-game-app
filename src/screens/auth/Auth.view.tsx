@@ -1,11 +1,14 @@
+import { useInputAnimation } from "@/animations/hooks/useInputAnimation"
 import { usePressAnimation } from "@/animations/hooks/usePressAnimation"
 import { colors, gradients } from "@/styles/colors"
 import { LinearGradient } from "expo-linear-gradient"
 import { FC } from "react"
-import { Image, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { Image, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
 import Animated from "react-native-reanimated"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useAuthViewModel } from "./useAuth.viewModel"
+
+const AnimatedTextInput = Animated.createAnimatedComponent(TextInput)
 
 export const LoginView: FC<ReturnType<typeof useAuthViewModel>> = ({
     handleSubmmit,
@@ -14,68 +17,75 @@ export const LoginView: FC<ReturnType<typeof useAuthViewModel>> = ({
 }) => {
 
     const handleSubmitPressAnimation = usePressAnimation()
+    const animatedTextInputAnimation = useInputAnimation()
 
     return (
-        <SafeAreaView style={styles.container}>
-            <KeyboardAvoidingView
-                behavior={Platform.OS === "ios" ? "padding" : undefined}
-                style={{ flex: 1 }}
-            >
-                <View style={styles.contant}>
-                    <View style={styles.logoContainer}>
-                        <Image
-                            source={require("@/assets/Logo.png")}
-                            resizeMode="contain"
-                            style={styles.logo}
-                        />
-                    </View>
+        <TouchableWithoutFeedback style={{ flex: 1 }} onPress={Keyboard.dismiss}>
+            <SafeAreaView style={styles.container}>
+                <KeyboardAvoidingView
+                    behavior={Platform.OS === "ios" ? "padding" : undefined}
+                    style={{ flex: 1 }}
+                >
+                    <View style={styles.contant}>
+                        <View style={styles.logoContainer}>
+                            <Image
+                                source={require("@/assets/Logo.png")}
+                                resizeMode="contain"
+                                style={styles.logo}
+                            />
+                        </View>
 
-                    <View style={styles.titleContainer}>
-                        <Text style={styles.title}>
-                            memory game
-                        </Text>
+                        <View style={styles.titleContainer}>
+                            <Text style={styles.title}>
+                                memory game
+                            </Text>
 
-                        <Text style={styles.subtitle}>
-                            Teste a sua memória enquanto aprende!
-                        </Text>
-                    </View>
+                            <Text style={styles.subtitle}>
+                                Teste a sua memória enquanto aprende!
+                            </Text>
+                        </View>
 
-                    <View style={styles.formContainer}>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Digite seu nome"
-                            autoCapitalize="words"
-                            returnKeyType="done"
-                            onChangeText={setUserName}
-                            value={userName}
-                        />
+                        <View style={styles.formContainer}>
+                            <AnimatedTextInput
+                                style={[styles.input, animatedTextInputAnimation.animatedStyle]}
+                                placeholder="Digite seu nome"
+                                autoCapitalize="words"
+                                returnKeyType="done"
+                                onChangeText={setUserName}
+                                textAlign={"center"}
+                                placeholderTextColor={colors.grayscale.gray300}
+                                onFocus={animatedTextInputAnimation.onFocus}
+                                onBlur={animatedTextInputAnimation.onBlur}
+                                value={userName}
+                            />
 
-                        <View style={styles.buttonGlow}>
-                            <Animated.View
-                                style={handleSubmitPressAnimation.animatedStyles}
-                            >
-                                <LinearGradient
-                                    colors={gradients.colorful}
-                                    start={{ x: 0, y: 0 }}
-                                    end={{ x: 1, y: 2 }}
-                                    style={styles.buttonGradient}
+                            <View style={styles.buttonGlow}>
+                                <Animated.View
+                                    style={handleSubmitPressAnimation.animatedStyles}
                                 >
-                                    <TouchableOpacity
-                                        onPressIn={handleSubmitPressAnimation.onPressIn}
-                                        onPressOut={handleSubmitPressAnimation.onPressOut}
-                                        onPress={handleSubmmit}
-                                        style={styles.button}
+                                    <LinearGradient
+                                        colors={gradients.colorful}
+                                        start={{ x: 0, y: 0 }}
+                                        end={{ x: 1, y: 2 }}
+                                        style={styles.buttonGradient}
                                     >
-                                        <Text style={styles.buttonText}>Entrar</Text>
-                                    </TouchableOpacity>
-                                </LinearGradient>
+                                        <TouchableOpacity
+                                            onPressIn={handleSubmitPressAnimation.onPressIn}
+                                            onPressOut={handleSubmitPressAnimation.onPressOut}
+                                            onPress={handleSubmmit}
+                                            style={styles.button}
+                                        >
+                                            <Text style={styles.buttonText}>Entrar</Text>
+                                        </TouchableOpacity>
+                                    </LinearGradient>
 
-                            </Animated.View>
+                                </Animated.View>
+                            </View>
                         </View>
                     </View>
-                </View>
-            </KeyboardAvoidingView>
-        </SafeAreaView >
+                </KeyboardAvoidingView>
+            </SafeAreaView >
+        </TouchableWithoutFeedback>
     )
 }
 

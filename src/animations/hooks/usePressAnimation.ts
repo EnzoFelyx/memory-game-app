@@ -2,11 +2,9 @@ import { useCallback } from "react"
 import { useAnimatedStyle, useSharedValue, withSpring, WithSpringConfig } from "react-native-reanimated"
 import { SPRING_CONFIG } from "../config/animation.config"
 
-
 interface Props {
     scaleActive?: number
     springConfig?: WithSpringConfig
-
 }
 
 export const usePressAnimation = ({ scaleActive = 0.95, springConfig = SPRING_CONFIG.press }: Props = {}) => {
