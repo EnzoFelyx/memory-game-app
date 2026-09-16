@@ -1,8 +1,8 @@
-import { Challenge, GameState } from "../utils/challenger";
+import { Challenge, GameResult, GameState, StoreCard } from "../utils/challenger";
 import { CardsService } from "./card.service";
 
 export class GameService {
-    //começa o jogo
+    //começa a contagem regressiva para começar o jogo
     static initializeGame(challenge: Challenge): GameState {
         const cards = CardsService.generateCards(challenge)
 
@@ -17,6 +17,7 @@ export class GameService {
         }
     }
 
+    //começa o jogo
     static startGame(gameState: GameState): GameState {
         return {
             ...gameState,
@@ -25,6 +26,11 @@ export class GameService {
         }
     }
 
+    static isGameCompleted(cards: StoreCard[]): boolean {
+        return cards.every((card) => card.isMatched)
+    }
+
+    //seleciona o card alvo
     static selectCard(gameState: GameState, cardId: string): {
         newState: GameState,
         action: 'flip' | 'match' | 'missMatch' | 'invalid'
@@ -82,11 +88,14 @@ export class GameService {
                 }
             })
 
+            const isComplete = this.isGameCompleted(finalCards)
+
             return {
                 newState: {
                     ...gameState,
                     cards: finalCards,
-                    selectedCards: []
+                    selectedCards: [],
+                    status: isComplete ? "finished" : 'playing'
                 },
                 action: 'match'
             }
@@ -99,6 +108,78 @@ export class GameService {
                 },
                 action: 'missMatch'
             }
+        }
+    }
+
+    //metodo para virar os cards novamente quando erra a match
+    static resetMissMatchedCards(gameState: GameState) {
+
+        const { cards, selectedCards } = gameState
+
+        const updatedCardArray = cards.map((card) => {
+            const isSelected = selectedCards.some(({ id }) => card.id === id)
+
+            if (isSelected && !card.isMatched) {
+                return CardsService.flipCard(card, false)
+            } else {
+                return card
+            }
+        })
+
+        return {
+            ...gameState,
+            cards: updatedCardArray,
+            selectedCards: []
+        }
+    }
+
+    //pausa o jogo
+    static pauseGame(gameState: GameState): GameState {
+        return {
+            ...gameState,
+            status: 'paused'
+        }
+    }
+
+    //continua o jogo dentro do tempo limite
+    static resumeGame(gameState: GameState): GameState {
+        return {
+            ...gameState,
+            status: 'playing'
+        }
+    }
+
+    //reseta o jogo 
+    static resetGame(challenge: Challenge): GameState {
+        return this.initializeGame(challenge)
+    }
+
+    //clock do jogo, tempo restante e tempo percorrido para fazer o desafio
+    static tick(gameState: GameState): GameState {
+        if (gameState.status !== 'playing') {
+            return gameState
+        }
+
+        const timeRemaing = Math.max(0, gameState.timeRemaing - 1)
+        const timeElapsed = gameState.timeElapsed + 1
+
+        return {
+            ...gameState,
+            timeElapsed,
+            timeRemaing,
+            status: timeRemaing === 0 ? "timeout" : gameState.status
+        }
+    }
+
+    //função que é chamada quando o jogo acaba e mostra os resultados
+    static finishGame(gameState: GameState): GameResult | null {
+        if (!gameState.challenge) {
+            return null
+        }
+        return {
+            completed: Boolean(gameState.status === 'finished'),
+            timeElapsed: gameState.timeElapsed,
+            challenge: gameState.challenge
         }
     }
 }

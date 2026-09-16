@@ -15,7 +15,7 @@ export interface ChallengeTheme {
   arrowColor?: string
 }
 
-export type GameStatus = 'idle' | 'countdown' | 'playing' | 'finished' | 'timeout'
+export type GameStatus = 'idle' | 'countdown' | 'playing' | 'paused' | 'finished' | 'timeout'
 
 export interface Challenge {
   id: string
