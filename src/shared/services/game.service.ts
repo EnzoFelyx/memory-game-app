@@ -182,4 +182,14 @@ export class GameService {
             challenge: gameState.challenge
         }
     }
+    
+    //mostra todas as cards
+    static previewAllCards(cards: StoreCard[]): StoreCard[] {
+        return cards.map((card) => CardsService.flipCard(card, true))
+    }
+
+    //esconde todas as cards
+    static hideAllCards(cards: StoreCard[]): StoreCard[] {
+        return cards.map((card) => CardsService.flipCard(card, false))
+    }
 }
