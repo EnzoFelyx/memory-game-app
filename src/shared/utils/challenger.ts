@@ -108,3 +108,27 @@ export interface StoreCard extends CardItem {
   isFlipped: boolean
   isMatched: boolean
 }
+
+export interface DiffConfig {
+  diff: Difficulty,
+  timeLimit: number
+  estimedTime: string
+}
+
+export const diffConfigs: Record<Difficulty, DiffConfig> = {
+  Fácil: {
+    diff: "Fácil",
+    timeLimit: 300,
+    estimedTime: "5 min"
+  },
+  Médio: {
+    diff: "Médio",
+    timeLimit: 240,
+    estimedTime: "4 min"
+  },
+  Difícil: {
+    diff: "Difícil",
+    timeLimit: 30,
+    estimedTime: "3 min"
+  }
+}

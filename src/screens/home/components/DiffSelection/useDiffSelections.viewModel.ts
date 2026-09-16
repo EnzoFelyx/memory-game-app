@@ -1,12 +1,18 @@
+import { useNumberAnimation } from "@/animations/hooks/useNumberAnimations"
 import { Difficulty } from "@/shared/interfaces/difficulty"
+import { diffConfigs } from "@/shared/utils/challenger"
 import { useEffect, useState } from "react"
 import { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated"
 
+const difficulties: Difficulty[] = ["Fácil", "Médio", "Difícil"]
+
 export const useDiffSelectionsViewModel = () => {
 
-    const difficulties: Difficulty[] = ["Fácil", "Médio", "Difícil"]
-
     const [selectedDiff, setSelectedDiff] = useState<Difficulty>("Fácil")
+
+    const diffConfig = diffConfigs[selectedDiff]
+
+    const { animatedStyle: timeAnimatedStyle } = useNumberAnimation(diffConfig.estimedTime)
 
     const selectedIndex = difficulties.indexOf(selectedDiff)
 
@@ -30,6 +36,8 @@ export const useDiffSelectionsViewModel = () => {
         difficulties,
         selectedDiff,
         setSelectedDiff,
-        animatedIndicatorStyle
+        animatedIndicatorStyle,
+        diffConfig,
+        timeAnimatedStyle
     }
 }

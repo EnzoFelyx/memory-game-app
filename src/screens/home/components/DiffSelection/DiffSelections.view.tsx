@@ -11,21 +11,23 @@ export const DiffSelectionsView: FC<ReturnType<typeof useDiffSelectionsViewModel
     difficulties,
     selectedDiff,
     setSelectedDiff,
-    animatedIndicatorStyle
+    animatedIndicatorStyle,
+    diffConfig,
+    timeAnimatedStyle
 }) => {
 
     return (
         <View style={styles.difficultySection}>
             <View style={styles.difficultyHeader}>
                 <Text>Dificuldade</Text>
-                <View style={styles.timeIndicator}>
+                <Animated.View style={[styles.timeIndicator, timeAnimatedStyle]}>
                     <MaterialCommunityIcons
                         name="clock-outline"
                         color={colors.feedback.info}
                         size={16}
                     />
-                    <Text>5 min</Text>
-                </View>
+                    <Text>{diffConfig.estimedTime}</Text>
+                </Animated.View>
             </View>
 
             <View style={styles.difficultyTabs}>
