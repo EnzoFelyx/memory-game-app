@@ -1,16 +1,9 @@
-import { Difficulty } from "@/shared/interfaces/difficulty";
-import { useLocalSearchParams } from "expo-router";
-import { Text, View } from "react-native";
+import { GameView } from "@/screens/game/Game.view";
+import { useGameViewModel } from "@/screens/game/useGame.viewModel";
 
 export default function Game() {
 
-    const params = useLocalSearchParams<{ themeId: string; difficulty: Difficulty }>()
+    const viewModel = useGameViewModel()
 
-    console.log(params)
-
-    return (
-        <View>
-            <Text>Tela de Game</Text>
-        </View>
-    )
+    return <GameView {...viewModel} />
 }
