@@ -1,14 +1,17 @@
 import { useNumberAnimation } from "@/animations/hooks/useNumberAnimations"
 import { Difficulty } from "@/shared/interfaces/difficulty"
 import { diffConfigs } from "@/shared/utils/challenger"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated"
 
 const difficulties: Difficulty[] = ["Fácil", "Médio", "Difícil"]
 
-export const useDiffSelectionsViewModel = () => {
+export interface DiffSelectionsViewModelProps {
+    setSelectedDiff: (difficulty: Difficulty) => void
+    selectedDiff: Difficulty
+}
 
-    const [selectedDiff, setSelectedDiff] = useState<Difficulty>("Fácil")
+export const useDiffSelectionsViewModel = ({ selectedDiff, setSelectedDiff }: DiffSelectionsViewModelProps) => {
 
     const diffConfig = diffConfigs[selectedDiff]
 

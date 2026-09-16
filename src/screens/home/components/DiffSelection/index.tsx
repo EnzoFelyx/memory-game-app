@@ -1,9 +1,9 @@
 import { DiffSelectionsView } from "./DiffSelections.view"
-import { useDiffSelectionsViewModel } from "./useDiffSelections.viewModel"
+import { DiffSelectionsViewModelProps, useDiffSelectionsViewModel } from "./useDiffSelections.viewModel"
 
-export const DiffSelections = () => {
+export const DiffSelections = ({ selectedDiff, setSelectedDiff }: DiffSelectionsViewModelProps) => {
 
-    const viewModel = useDiffSelectionsViewModel()
+    const viewModel = useDiffSelectionsViewModel({ selectedDiff, setSelectedDiff })
 
     return <DiffSelectionsView {...viewModel} />
 }
