@@ -8,12 +8,13 @@ import { FC } from "react"
 import { Pressable, StyleSheet, View } from "react-native"
 import Animated from "react-native-reanimated"
 
-export const ChallengerCard: FC<ChallengeTheme> = ({
+export const ChallengerCard: FC<ChallengeTheme & { handleSelectChallenge: (challengerId: string) => void }> = ({
     cards,
     id,
     title,
     arrowColor,
-    gradient
+    gradient,
+    handleSelectChallenge
 }) => {
 
     const pressAnimation = usePressAnimation()
@@ -27,6 +28,7 @@ export const ChallengerCard: FC<ChallengeTheme> = ({
         >
             <Animated.View style={pressAnimation.animatedStyles}>
                 <Pressable
+                    onPress={() => handleSelectChallenge(id)}
                     style={styles.content}
                     onPressIn={pressAnimation.onPressIn}
                     onPressOut={pressAnimation.onPressOut}

@@ -8,9 +8,9 @@ import { HomeHeader } from "./components/HomeHeader"
 import { useHomeViewModel } from "./useHome.viewModel"
 
 export const HomeView: FC<ReturnType<typeof useHomeViewModel>> = ({
-    logout,
     selectedDiff,
-    setSelectedDiff
+    setSelectedDiff,
+    handleSelectChallenge
 }) => {
 
     return (
@@ -18,7 +18,7 @@ export const HomeView: FC<ReturnType<typeof useHomeViewModel>> = ({
             <View style={styles.content}>
                 <HomeHeader />
                 <DiffSelections selectedDiff={selectedDiff} setSelectedDiff={setSelectedDiff} />
-                <ChallengerList />
+                <ChallengerList handleSelectChallenge={handleSelectChallenge} />
             </View>
         </SafeAreaView>
     )

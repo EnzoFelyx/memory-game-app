@@ -65,7 +65,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
             clearInterval(currentState._timerId)
         }
         const timerId = setInterval(() => {
-            get().tick
+            get().tick()
         }, 1000)
 
         set({ _timerId: timerId })

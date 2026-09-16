@@ -1,16 +1,24 @@
 import { Difficulty } from "@/shared/interfaces/difficulty"
-import { useAuthStore } from "@/shared/stores/auth.store"
-import { useState } from "react"
+import { router } from "expo-router"
+import { useCallback, useState } from "react"
 
 export const useHomeViewModel = () => {
 
     const [selectedDiff, setSelectedDiff] = useState<Difficulty>("Fácil")
 
-    const { logout } = useAuthStore()
+    const handleSelectChallenge = useCallback((themeId: string) => {
+        router.push({
+            pathname: "/(private)/game",
+            params: {
+                themeId,
+                difficulty: selectedDiff
+            }
+        })
+    }, [selectedDiff])
 
     return {
-        logout,
         selectedDiff,
-        setSelectedDiff
+        setSelectedDiff,
+        handleSelectChallenge
     }
 }
