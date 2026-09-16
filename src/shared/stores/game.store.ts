@@ -44,7 +44,11 @@ export const useGameStore = create<GameStore>((set, get) => ({
         const newState = GameService.resetMissMatchedCards(currentState)
         set(newState)
     },
-    selectCard: (cardId: string) => { },
+    selectCard: (cardId: string) => {
+        const currentState = get()
+        const { newState, action } = GameService.selectCard(currentState, cardId)
+        set(newState)
+    },
     startGame: () => {
         const currentState = get()
         const newState = GameService.startGame(currentState)

@@ -21,7 +21,7 @@ export const useGameViewModel = () => {
     const handleCountdown = useCallback(() => {
         setVisibleCounting(false)
         createSequence()
-            .wait(2000)
+            .wait(300)
             .then(previewAllCards)
             .wait(2000)
             .then(hideAllCards)

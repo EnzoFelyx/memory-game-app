@@ -6,8 +6,6 @@ export const CardGrid = () => {
 
     const { cards } = useGameStore()
 
-    console.log(cards)
-
     return (
         <View style={styles.grid}>
             {cards.map((card, index) => (
