@@ -8,7 +8,9 @@ import { useGameViewModel } from "./useGame.viewModel"
 
 export const GameView: FC<ReturnType<typeof useGameViewModel>> = ({
     difficulty,
-    selectedTheme
+    selectedTheme,
+    visibleCounting,
+    handleCountdown
 }) => {
 
     return (
@@ -17,7 +19,7 @@ export const GameView: FC<ReturnType<typeof useGameViewModel>> = ({
                 <Text style={styles.title}>{selectedTheme?.title}</Text>
                 <Text style={styles.subTitle}>Encontre todos os pares dentro do tempo!</Text>
             </View>
-            <CountDown />
+            <CountDown visibleCounting={visibleCounting} handleCountdown={handleCountdown}/>
         </SafeAreaView>
     )
 }

@@ -4,8 +4,12 @@ import { StyleSheet, View } from "react-native"
 import { useCountDownViewModel } from "./useCountDown.viewModel"
 
 export const CountDownOverlayView: FC<ReturnType<typeof useCountDownViewModel>> = ({
-    count
+    count,
+    visibleCounting
 }) => {
+
+    if (!visibleCounting) return
+    
     return (
         <View style={styles.overlay}>
             <View style={styles.contentWrapper}>

@@ -1,9 +1,15 @@
+import { FC } from "react"
 import { CountDownOverlayView } from "./CountDown.view"
 import { useCountDownViewModel } from "./useCountDown.viewModel"
 
-export const CountDown = () => {
+export interface CountDownProps {
+    visibleCounting: boolean
+    handleCountdown: () => void
+}
 
-    const viewModel = useCountDownViewModel()
+export const CountDown: FC<CountDownProps> = (params) => {
+
+    const viewModel = useCountDownViewModel(params)
 
     return <CountDownOverlayView {...viewModel} />
 }

@@ -1,12 +1,9 @@
-import { useGameStore } from "@/shared/stores/game.store"
 import { useEffect, useState } from "react"
+import { CountDownProps } from "."
 
-export const useCountDownViewModel = () => {
+export const useCountDownViewModel = ({ handleCountdown, visibleCounting }: CountDownProps) => {
 
     const [count, setCount] = useState(3)
-
-    const { status } = useGameStore()
-    const visibleCounting = Boolean(status === 'countdown')
 
     useEffect(() => {
         if (visibleCounting) {
@@ -18,13 +15,15 @@ export const useCountDownViewModel = () => {
                     setCount(currentCount)
                 } else {
                     clearInterval(countDown)
+                    handleCountdown()
                 }
             }, 1000);
             return () => clearInterval(countDown)
         }
-    }, [setCount, visibleCounting])
+    }, [setCount, visibleCounting, handleCountdown])
 
     return {
-        count
+        count,
+        visibleCounting
     }
 }
