@@ -8,9 +8,9 @@ interface Props {
     index: number
 }
 
-export const GameCard: FC<Props> = ({ card }) => {
+export const GameCard: FC<Props> = ({ card, index }) => {
 
-    const viewModel = useGameCardViewModel({ card })
+    const viewModel = useGameCardViewModel({ card, index })
 
     return <GameCardView {...viewModel} />
 }

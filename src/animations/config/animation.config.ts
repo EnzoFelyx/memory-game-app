@@ -7,7 +7,7 @@ export const SPRING_CONFIG = {
     } satisfies WithSpringConfig,
 
     entryThrow: {
-        damping: 22,
+        damping: 27,
         stiffness: 180
     } satisfies WithSpringConfig,
 

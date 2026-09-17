@@ -1,3 +1,4 @@
+import { useCardEntryAnimation } from "@/animations/hooks/useCardEntryAnimation"
 import { useGameStore } from "@/shared/stores/game.store"
 import { StoreCard } from "@/shared/utils/challenger"
 import { useEffect } from "react"
@@ -5,11 +6,14 @@ import { interpolate, useAnimatedStyle, useSharedValue, withSpring } from "react
 
 interface Props {
     card: StoreCard
+    index: number
 }
 
-export const useGameCardViewModel = ({ card }: Props) => {
+export const useGameCardViewModel = ({ card, index }: Props) => {
 
-    const { selectCard } = useGameStore()
+    const { selectCard, } = useGameStore()
+
+    const entry = useCardEntryAnimation({ cardIndex: index })
 
     const rotation = useSharedValue(card.isFlipped ? 180 : 0)
 
@@ -41,6 +45,7 @@ export const useGameCardViewModel = ({ card }: Props) => {
         card,
         backAnimatedStyle,
         frontAnimatedStyle,
-        selectCard
+        selectCard,
+        entry
     }
 }
