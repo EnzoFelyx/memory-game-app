@@ -42,7 +42,7 @@ export class GameService {
             action: 'invalid'
         }
 
-        const card = cards.find((card) => cardId === cardId)
+        const card = cards.find((card) => card.id === cardId)
 
         if (!card || card.isMatched || card.isFlipped) return {
             newState: gameState,
@@ -182,7 +182,7 @@ export class GameService {
             challenge: gameState.challenge
         }
     }
-    
+
     //mostra todas as cards
     static previewAllCards(cards: StoreCard[]): StoreCard[] {
         return cards.map((card) => CardsService.flipCard(card, true))

@@ -12,9 +12,9 @@ export const useGameViewModel = () => {
         difficulty: Difficulty
     }>()
 
-    const { initGame, status, previewAllCards, hideAllCards, startGame } = useGameStore()
+    const { initGame, clearGame, status, previewAllCards, hideAllCards, startGame } = useGameStore()
 
-    const [visibleCounting, setVisibleCounting] = useState(Boolean(status === 'countdown'))
+    const [visibleCounting, setVisibleCounting] = useState(true)
 
     const selectedTheme = challengeTheme.find(({ id }) => id === themeId)
 
@@ -39,7 +39,9 @@ export const useGameViewModel = () => {
             estimedTime: diffConfigs[difficulty].estimedTime,
             timeLimit: diffConfigs[difficulty].timeLimit,
         })
+        return () => clearGame() // limpa ao sair da tela
     }, [
+        clearGame,
         difficulty,
         initGame,
         selectedTheme?.cards,
