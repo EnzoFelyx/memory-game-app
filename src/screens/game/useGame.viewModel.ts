@@ -5,7 +5,7 @@ import { Difficulty } from "@/shared/interfaces/difficulty";
 import { useGameStore } from "@/shared/stores/game.store";
 import { challengeTheme, diffConfigs } from "@/shared/utils/challenger";
 import { createSequence } from "@/shared/utils/sequence";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 
 export const useGameViewModel = () => {
@@ -82,10 +82,15 @@ export const useGameViewModel = () => {
         themeId,
     ])
 
+    const handleGoBack = () => {
+        router.back()
+    }
+
     return {
         difficulty,
         selectedTheme,
         visibleCounting,
-        handleCountdown
+        handleCountdown,
+        handleGoBack
     }
 }

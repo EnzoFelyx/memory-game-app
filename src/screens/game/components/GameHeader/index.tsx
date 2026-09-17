@@ -1,9 +1,14 @@
+import { FC } from "react"
 import { GameHeaderView } from "./GameHeader.view"
 import { useGameHeaderViewModel } from "./useGameHeader.viewModel"
 
-export const GameHeader = () => {
+interface Props {
+    handleGoBack: () => void
+}
 
-    const viewModel = useGameHeaderViewModel()
+export const GameHeader: FC<Props> = ({ handleGoBack }) => {
+
+    const viewModel = useGameHeaderViewModel({ handleGoBack })
 
     return <GameHeaderView {...viewModel} />
 }

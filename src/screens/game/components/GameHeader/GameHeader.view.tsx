@@ -15,12 +15,15 @@ export const GameHeaderView: FC<ReturnType<typeof useGameHeaderViewModel>> = ({
     timeLimit,
     isCriticalTime,
     isLowTime,
-    timerColor
+    timerColor,
+    animatedTimerStyles,
+    handleGoBack
 }) => {
 
     return (
         <View style={styles.container}>
             <AnimatedPressable
+                onPress={handleGoBack}
                 onPressIn={onPressIn}
                 onPressOut={onPressOut}
                 style={[styles.backButton, animatedStyles]}
@@ -31,7 +34,7 @@ export const GameHeaderView: FC<ReturnType<typeof useGameHeaderViewModel>> = ({
                     color={colors.grayscale.gray100} />
             </AnimatedPressable>
 
-            <Animated.View style={styles.timerContainer}>
+            <Animated.View style={[styles.timerContainer, animatedTimerStyles]}>
                 <MaterialCommunityIcons
                     name="clock-outline"
                     size={20}

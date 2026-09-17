@@ -12,12 +12,13 @@ export const GameView: FC<ReturnType<typeof useGameViewModel>> = ({
     difficulty,
     selectedTheme,
     visibleCounting,
-    handleCountdown
+    handleCountdown,
+    handleGoBack
 }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <GameHeader />
+            <GameHeader handleGoBack={handleGoBack} />
             <View style={styles.info}>
                 <Text style={styles.title}>{selectedTheme?.title}</Text>
                 <Text style={styles.subTitle}>Encontre todos os pares dentro do tempo!</Text>
@@ -45,6 +46,7 @@ const styles = StyleSheet.create({
     },
     subTitle: {
         fontSize: 16,
-        color: colors.grayscale.gray200
+        color: colors.grayscale.gray200,
+        marginBottom: 24,
     }
 })
