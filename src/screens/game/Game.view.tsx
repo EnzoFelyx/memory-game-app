@@ -5,6 +5,7 @@ import { StyleSheet, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { CardGrid } from "./components/CardGrid"
 import { CountDown } from "./components/CountDown"
+import { GameHeader } from "./components/GameHeader"
 import { useGameViewModel } from "./useGame.viewModel"
 
 export const GameView: FC<ReturnType<typeof useGameViewModel>> = ({
@@ -16,12 +17,13 @@ export const GameView: FC<ReturnType<typeof useGameViewModel>> = ({
 
     return (
         <SafeAreaView style={styles.container}>
+            <GameHeader />
             <View style={styles.info}>
                 <Text style={styles.title}>{selectedTheme?.title}</Text>
                 <Text style={styles.subTitle}>Encontre todos os pares dentro do tempo!</Text>
-                <CardGrid/>
+                <CardGrid />
             </View>
-            <CountDown visibleCounting={visibleCounting} handleCountdown={handleCountdown}/>
+            <CountDown visibleCounting={visibleCounting} handleCountdown={handleCountdown} />
         </SafeAreaView>
     )
 }
