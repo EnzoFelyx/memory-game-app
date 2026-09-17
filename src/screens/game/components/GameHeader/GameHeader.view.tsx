@@ -11,7 +11,11 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 export const GameHeaderView: FC<ReturnType<typeof useGameHeaderViewModel>> = ({
     animatedStyles,
     onPressIn,
-    onPressOut
+    onPressOut,
+    timeLimit,
+    isCriticalTime,
+    isLowTime,
+    timerColor
 }) => {
 
     return (
@@ -21,12 +25,23 @@ export const GameHeaderView: FC<ReturnType<typeof useGameHeaderViewModel>> = ({
                 onPressOut={onPressOut}
                 style={[styles.backButton, animatedStyles]}
             >
-                <MaterialCommunityIcons name="chevron-left" size={32} color={colors.grayscale.gray100} />
+                <MaterialCommunityIcons
+                    name="chevron-left"
+                    size={32}
+                    color={colors.grayscale.gray100} />
             </AnimatedPressable>
 
             <Animated.View style={styles.timerContainer}>
-                <MaterialCommunityIcons name="clock-outline" size={20} color={colors.semantic.warning} />
-                <Text>1</Text>
+                <MaterialCommunityIcons
+                    name="clock-outline"
+                    size={20}
+                    color={timerColor}
+                />
+                <Text style={[
+                    styles.timerText,
+                    isCriticalTime && styles.timerTextCritical,
+                    !isCriticalTime && isLowTime && styles.timerTextLow
+                ]}>{timeLimit}</Text>
             </Animated.View>
         </View>
     )
@@ -47,15 +62,31 @@ const styles = StyleSheet.create({
         borderRadius: 24,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: colors.grayscale.gray500
+        backgroundColor: colors.grayscale.gray600,
+        borderWidth: 1,
+        borderColor: colors.grayscale.gray500
     },
     timerContainer: {
         flexDirection: "row",
         alignItems: "center",
-        backgroundColor: colors.grayscale.gray500,
-        paddingHorizontal: 20,
+        backgroundColor: colors.grayscale.gray600,
+        borderWidth: 1,
+        borderColor: colors.grayscale.gray500,
+        width: 100,
+        paddingLeft: 12,
         paddingVertical: 12,
         borderRadius: 24,
         gap: 8
+    },
+    timerText: {
+        fontSize: 18,
+        fontFamily: "Baloo2_700Bold",
+        color: colors.feedback.info
+    },
+    timerTextLow: {
+        color: colors.semantic.warning
+    },
+    timerTextCritical: {
+        color: colors.feedback.danger
     }
 })

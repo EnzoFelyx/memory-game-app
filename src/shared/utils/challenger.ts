@@ -123,7 +123,7 @@ export const diffConfigs: Record<Difficulty, DiffConfig> = {
   },
   Médio: {
     diff: "Médio",
-    timeLimit: 240,
+    timeLimit: 60,
     estimedTime: "4 min"
   },
   Difícil: {
