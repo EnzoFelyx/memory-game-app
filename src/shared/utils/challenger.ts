@@ -35,6 +35,7 @@ export interface GameState {
   timeElapsed: number
   startedAt: Date | null
   cards: StoreCard[]
+  missMatchedIds: string[]
 }
 
 export interface GameResult {

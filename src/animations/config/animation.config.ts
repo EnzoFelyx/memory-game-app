@@ -19,6 +19,11 @@ export const SPRING_CONFIG = {
     entryScale: {
         damping: 22,
         stiffness: 180
+    } satisfies WithSpringConfig,
+
+    selection: {
+        damping: 15,
+        stiffness: 300
     } satisfies WithSpringConfig
 }
 
@@ -51,3 +56,16 @@ export const ANIMATION_TIMINGS = {
 export const ANIMATION_EASING = {
     entry: Easing.out(Easing.cubic)
 }
+
+export const MISS_MATCH_TIMINGS = {
+    // tempo que o par errado fica visível antes do shake começar
+    peek: 300,
+    // duração de cada passo do vai-e-vem do shake
+    shakeStep: 50,
+    // quantos ciclos de vai-e-vem depois do impulso inicial
+    shakeCycles: 3,
+}
+
+// impulso inicial + (ida e volta * ciclos) + retorno ao centro
+export const SHAKE_DURATION =
+    MISS_MATCH_TIMINGS.shakeStep * (2 + MISS_MATCH_TIMINGS.shakeCycles * 2)

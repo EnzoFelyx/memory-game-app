@@ -11,12 +11,21 @@ export const GameCardView: FC<ReturnType<typeof useGameCardViewModel>> = ({
     backAnimatedStyle,
     frontAnimatedStyle,
     selectCard,
-    entry
+    entry,
+    animatedSelection,
+    onPressIn,
+    onPressOut,
+    animatedShake
 }) => {
 
     return (
-        <Animated.View style={[styles.containerWrapper, entry.animatedStyle]}>
-            <Pressable style={styles.container} onPress={() => selectCard(card.id)}>
+        <Animated.View style={[styles.containerWrapper, entry.animatedStyle, animatedSelection, animatedShake]}>
+            <Pressable
+                style={styles.container}
+                onPress={() => selectCard(card.id)}
+                onPressIn={onPressIn}
+                onPressOut={onPressOut}
+            >
                 <Animated.View style={styles.innerContainer}>
 
                     <Animated.View style={[styles.cardFace, frontAnimatedStyle]}>
@@ -61,9 +70,6 @@ const styles = StyleSheet.create({
         width: "32%",
         height: 120,
         marginBottom: 8,
-        borderColor: colors.grayscale.gray400,
-        borderWidth: 1,
-        borderRadius: 16
     },
     container: {
         flex: 1
@@ -75,7 +81,10 @@ const styles = StyleSheet.create({
         position: "absolute",
         height: "100%",
         width: "100%",
-        backfaceVisibility: "hidden"
+        backfaceVisibility: "hidden",
+        borderColor: colors.grayscale.gray400,
+        borderWidth: 1,
+        borderRadius: 16
     },
     cardGradient: {
         flex: 1,

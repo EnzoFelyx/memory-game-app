@@ -1,3 +1,4 @@
+import { MISS_MATCH_TIMINGS, SHAKE_DURATION } from "@/animations/config/animation.config";
 import { create } from "zustand";
 import { GameService } from "../services/game.service";
 import { Challenge, GameResult, GameState } from "../utils/challenger";
@@ -6,6 +7,7 @@ interface GameStore extends GameState {
     initGame: (challenge: Challenge) => void
     startGame: () => void
     selectCard: (id: string) => void
+    flagMissMatch: () => void
     resetMissMatchedCards: () => void
     finished: () => GameResult | null
     tick: () => void
@@ -28,6 +30,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
     timeElapsed: 0,
     startedAt: null,
     timeRemaing: 0,
+    missMatchedIds: [],
     _timerId: null,
 
     initGame: (challenger: Challenge) => {
@@ -38,6 +41,11 @@ export const useGameStore = create<GameStore>((set, get) => ({
         const currentState = get()
         const result = GameService.finishGame(currentState)
         return result
+    },
+    flagMissMatch: () => {
+        const currentState = get()
+        const newState = GameService.flagMissMatch(currentState)
+        set(newState)
     },
     resetMissMatchedCards: () => {
         const currentState = get()
@@ -56,12 +64,18 @@ export const useGameStore = create<GameStore>((set, get) => ({
             case "invalid":
                 break;
             case "missMatch":
-                setTimeout(() => get().resetMissMatchedCards(), 1000);
+                setTimeout(() => get().flagMissMatch(), MISS_MATCH_TIMINGS.peek)
+                setTimeout(
+                    () => get().resetMissMatchedCards(),
+                    MISS_MATCH_TIMINGS.peek + SHAKE_DURATION
+                )
+                break;
 
             case "match":
                 if (newState.status === "finished") {
                     setTimeout(() => get().finished(), 500)
                 }
+                break;
         }
 
     },
@@ -128,6 +142,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
             timeElapsed: 0,
             startedAt: null,
             timeRemaing: 0,
+            missMatchedIds: [],
             _timerId: null,
         })
     },

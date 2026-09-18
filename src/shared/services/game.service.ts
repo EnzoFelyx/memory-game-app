@@ -13,7 +13,8 @@ export class GameService {
             cards,
             timeRemaing: challenge.timeLimit,
             timeElapsed: 0,
-            startedAt: null
+            startedAt: null,
+            missMatchedIds: []
         }
     }
 
@@ -111,6 +112,14 @@ export class GameService {
         }
     }
 
+    //marca o par errado para que as cards possam reagir (shake) antes de desvirar
+    static flagMissMatch(gameState: GameState): GameState {
+        return {
+            ...gameState,
+            missMatchedIds: gameState.selectedCards.map(({ id }) => id)
+        }
+    }
+
     //metodo para virar os cards novamente quando erra a match
     static resetMissMatchedCards(gameState: GameState) {
 
@@ -129,7 +138,8 @@ export class GameService {
         return {
             ...gameState,
             cards: updatedCardArray,
-            selectedCards: []
+            selectedCards: [],
+            missMatchedIds: []
         }
     }
 

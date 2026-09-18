@@ -1,4 +1,6 @@
 import { useCardEntryAnimation } from "@/animations/hooks/useCardEntryAnimation"
+import { useCardSelectionAnimation } from "@/animations/hooks/useCardSelectionAnimation"
+import { useCardShakeAnimation } from "@/animations/hooks/useCardShakeAnimation"
 import { useGameStore } from "@/shared/stores/game.store"
 import { StoreCard } from "@/shared/utils/challenger"
 import { useEffect } from "react"
@@ -12,6 +14,12 @@ interface Props {
 export const useGameCardViewModel = ({ card, index }: Props) => {
 
     const { selectCard, } = useGameStore()
+
+    const { animatedStyle: animatedSelection, onPressIn, onPressOut } = useCardSelectionAnimation()
+
+    const { animatedStyle: animatedShake, shakeCards } = useCardShakeAnimation()
+
+    const isMissMatched = useGameStore((state) => state.missMatchedIds.includes(card.id))
 
     const entry = useCardEntryAnimation({ cardIndex: index })
 
@@ -35,10 +43,16 @@ export const useGameCardViewModel = ({ card, index }: Props) => {
 
     useEffect(() => {
         rotation.value = withSpring(card.isFlipped ? 180 : 0, {
-            duration: 300
+            duration: 600
         })
 
     }, [card.isFlipped, rotation])
+
+    useEffect(() => {
+        if (isMissMatched) {
+            shakeCards()
+        }
+    }, [isMissMatched, shakeCards])
 
 
     return {
@@ -46,6 +60,10 @@ export const useGameCardViewModel = ({ card, index }: Props) => {
         backAnimatedStyle,
         frontAnimatedStyle,
         selectCard,
-        entry
+        entry,
+        animatedSelection,
+        onPressIn,
+        onPressOut,
+        animatedShake
     }
 }
