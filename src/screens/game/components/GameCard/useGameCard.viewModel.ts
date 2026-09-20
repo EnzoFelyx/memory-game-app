@@ -2,6 +2,7 @@ import { useCardEntryAnimation } from "@/animations/hooks/useCardEntryAnimation"
 import { useCardSelectionAnimation } from "@/animations/hooks/useCardSelectionAnimation"
 import { useCardShakeAnimation } from "@/animations/hooks/useCardShakeAnimation"
 import { useCardSucessAnimation } from "@/animations/hooks/useCardSucessAnimation"
+import { useCardTimeoutAnimation } from "@/animations/hooks/useCardTimeoutAnimation"
 import { useGameStore } from "@/shared/stores/game.store"
 import { StoreCard } from "@/shared/utils/challenger"
 import { useEffect } from "react"
@@ -16,11 +17,15 @@ export const useGameCardViewModel = ({ card, index }: Props) => {
 
     const selectCard = useGameStore((state) => state.selectCard)
 
+    const { status } = useGameStore()
+
     const { animatedStyle: sucessAnimationStyle, playSucess } = useCardSucessAnimation()
 
     const { animatedStyle: animatedSelection, onPressIn, onPressOut } = useCardSelectionAnimation()
 
     const { animatedStyle: animatedShake, shakeCards } = useCardShakeAnimation()
+
+    const { animatedStyle: timeoutAnimatiedStyle, fallTriger, resetTrigger } = useCardTimeoutAnimation()
 
     const isMissMatched = useGameStore((state) => state.missMatchedIds.includes(card.id))
 
@@ -63,6 +68,13 @@ export const useGameCardViewModel = ({ card, index }: Props) => {
         }
     }, [card.isMatched, playSucess])
 
+    useEffect(() => {
+        if (status === 'timeout' && !card.isMatched) {
+            const randomDelay = Math.random() * 200
+            fallTriger(randomDelay)
+        }
+    }, [status, card.isMatched])
+
 
     return {
         card,
@@ -74,6 +86,7 @@ export const useGameCardViewModel = ({ card, index }: Props) => {
         onPressIn,
         onPressOut,
         animatedShake,
-        sucessAnimationStyle
+        sucessAnimationStyle,
+        timeoutAnimatiedStyle
     }
 }

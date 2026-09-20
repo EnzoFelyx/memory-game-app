@@ -129,7 +129,7 @@ export const diffConfigs: Record<Difficulty, DiffConfig> = {
   },
   Difícil: {
     diff: "Difícil",
-    timeLimit: 30,
+    timeLimit: 5,
     estimedTime: "3 min"
   }
 }
