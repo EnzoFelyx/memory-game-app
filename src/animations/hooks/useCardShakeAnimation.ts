@@ -7,6 +7,7 @@ const SHAKE_DISTANCE = 10
 export const useCardShakeAnimation = () => {
 
     const translateX = useSharedValue(0)
+    const rotation = useSharedValue(0)
 
     const shakeCards = useCallback(() => {
         const duration = MISS_MATCH_TIMINGS.shakeStep
@@ -22,10 +23,21 @@ export const useCardShakeAnimation = () => {
             ),
             withTiming(0, { duration })
         )
+
+        rotation.value = withSequence(
+            withTiming(5, { duration: 50 }),
+            withRepeat(withSequence(withTiming(-5, { duration: 50 }), withTiming(5, { duration: 50 }),
+            ),
+                3,
+                false,
+            ),
+                withTiming(0, { duration: 50 })
+        )
+
     }, [translateX])
 
     const animatedStyle = useAnimatedStyle(() => ({
-        transform: [{ translateX: translateX.value }]
+        transform: [{ translateX: translateX.value }, { rotate: `${rotation.value}deg` }]
     }))
 
     return {

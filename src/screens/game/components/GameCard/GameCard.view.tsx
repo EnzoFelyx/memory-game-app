@@ -15,11 +15,12 @@ export const GameCardView: FC<ReturnType<typeof useGameCardViewModel>> = ({
     animatedSelection,
     onPressIn,
     onPressOut,
-    animatedShake
+    animatedShake,
+    sucessAnimationStyle
 }) => {
 
     return (
-        <Animated.View style={[styles.containerWrapper, entry.animatedStyle, animatedSelection, animatedShake]}>
+        <Animated.View style={[styles.containerWrapper, entry.animatedStyle, animatedSelection, animatedShake, sucessAnimationStyle]}>
             <Pressable
                 style={styles.container}
                 onPress={() => selectCard(card.id)}

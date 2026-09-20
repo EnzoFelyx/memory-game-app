@@ -91,6 +91,6 @@ export const useGameViewModel = () => {
         selectedTheme,
         visibleCounting,
         handleCountdown,
-        handleGoBack
+        handleGoBack,
     }
 }
