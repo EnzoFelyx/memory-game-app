@@ -21,6 +21,8 @@ export const useGameViewModel = () => {
 
     const [showExitModal, setShowExitModal] = useState(false)
 
+    const [showVictory, setShowVictory] = useState(false)
+
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>()
 
     const { entryAnimationType, setShouldAnimate, setEntryAnimationType, shouldAnimate } = useAnimationStore()
@@ -92,19 +94,16 @@ export const useGameViewModel = () => {
 
     const handleTryAgain = useCallback(() => {
         setVisibleModal(false)
+        setShowVictory(false)
         setShouldAnimate(false)
         resetGame()
 
         createSequence().wait(300).then(() => setVisibleCounting(true)).run()
     }, [resetGame, setVisibleCounting, shouldAnimate])
 
-    const handleGoBack = () => {
-        router.back()
-    }
-
     useEffect(() => {
         if (status === "finished") {
-
+            setShowVictory(true)
         }
         if (status === 'timeout') {
             createSequence().wait(getFallAnimationDuration()).then(() => setVisibleModal(true)).run()
@@ -144,7 +143,7 @@ export const useGameViewModel = () => {
     const handleCancelExit = useCallback(() => {
         resumeGame()
         setShowExitModal(false)
-    }, [])
+    }, [resumeGame])
 
     return {
         selectedTheme,
@@ -157,6 +156,7 @@ export const useGameViewModel = () => {
         handleOpenExitModal,
         isPlaying: status === "playing",
         handleConfirm,
-        handleCancelExit
+        handleCancelExit,
+        showVictory
     }
 }

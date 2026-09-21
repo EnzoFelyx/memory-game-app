@@ -9,6 +9,7 @@ import { DefeatModal } from "./components/DefeatModal"
 import { EdgeSwipeDetector } from "./components/EdgeSwipeDetector"
 import { ExitConfirmModal } from "./components/ExitConfirmModal"
 import { GameHeader } from "./components/GameHeader"
+import { VictoryModal } from "./components/VictoryModal"
 import { useGameViewModel } from "./useGame.viewModel"
 
 export const GameView: FC<ReturnType<typeof useGameViewModel>> = ({
@@ -22,7 +23,8 @@ export const GameView: FC<ReturnType<typeof useGameViewModel>> = ({
     handleConfirm,
     handleOpenExitModal,
     isPlaying,
-    showExitModal
+    showExitModal,
+    showVictory
 }) => {
 
     return (
@@ -33,10 +35,35 @@ export const GameView: FC<ReturnType<typeof useGameViewModel>> = ({
                 <Text style={styles.subTitle}>Encontre todos os pares dentro do tempo!</Text>
                 <CardGrid />
             </View>
-            <EdgeSwipeDetector enabled={isPlaying} onSwipe={handleOpenExitModal} />
-            <CountDown visibleCounting={visibleCounting} handleCountdown={handleCountdown} />
-            <DefeatModal visible={visibleModal} onGoHome={handleExit} onTryAgain={handleTryAgain} />
-            <ExitConfirmModal visible={showExitModal} onCancel={handleCancelExit} onConfirm={handleConfirm} />
+
+            <EdgeSwipeDetector
+                enabled={isPlaying}
+                onSwipe={handleOpenExitModal}
+            />
+
+            <CountDown
+                visibleCounting={visibleCounting}
+                handleCountdown={handleCountdown}
+            />
+
+            <DefeatModal
+                visible={visibleModal}
+                onGoHome={handleExit}
+                onTryAgain={handleTryAgain}
+            />
+
+            <ExitConfirmModal
+                visible={showExitModal}
+                onCancel={handleCancelExit}
+                onConfirm={handleConfirm}
+            />
+
+            <VictoryModal
+                visible={showVictory}
+                onGoHistory={() => { }}
+                onPlayAgain={handleTryAgain}
+            />
+
         </SafeAreaView>
     )
 }
