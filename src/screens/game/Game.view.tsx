@@ -5,6 +5,7 @@ import { StyleSheet, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { CardGrid } from "./components/CardGrid"
 import { CountDown } from "./components/CountDown"
+import { DefeatModal } from "./components/DefeatModal"
 import { GameHeader } from "./components/GameHeader"
 import { useGameViewModel } from "./useGame.viewModel"
 
@@ -25,6 +26,7 @@ export const GameView: FC<ReturnType<typeof useGameViewModel>> = ({
                 <CardGrid />
             </View>
             <CountDown visibleCounting={visibleCounting} handleCountdown={handleCountdown} />
+            <DefeatModal visible={true} onGoHome={() => { }} onTryAgain={() => { }} />
         </SafeAreaView>
     )
 }

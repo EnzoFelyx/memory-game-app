@@ -24,6 +24,12 @@ export const SPRING_CONFIG = {
     selection: {
         damping: 15,
         stiffness: 300
+    } satisfies WithSpringConfig,
+
+    modal: {
+        damping: 25,
+        stiffness: 120,
+        mass: 1
     } satisfies WithSpringConfig
 }
 
