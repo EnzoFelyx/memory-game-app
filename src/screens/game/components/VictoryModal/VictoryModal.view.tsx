@@ -20,7 +20,8 @@ export const VictoryModalView: FC<ReturnType<typeof useVictoryModalViewMode>> = 
     onPressInHistory,
     onPressInPlayAgain,
     onPressOutHistory,
-    onPressOutPlayAgain
+    onPressOutPlayAgain,
+    timeString
 }) => {
 
     return (
@@ -31,7 +32,7 @@ export const VictoryModalView: FC<ReturnType<typeof useVictoryModalViewMode>> = 
             <BlurView style={style.overlay}>
                 <Animated.View style={[style.container, animatedStyle]}>
                     <MaterialCommunityIcons name="trophy-outline" color={colors.accent.lightPurple} size={64} />
-                    <Text style={style.title}>Você concluiu o desafio em { }</Text>
+                    <Text style={style.title}>Você concluiu o desafio em {timeString}</Text>
 
                     <View style={style.buttonGlow}>
                         <Animated.View style={[buttonAnimatedStylesPlayAgain]}>
@@ -55,7 +56,7 @@ export const VictoryModalView: FC<ReturnType<typeof useVictoryModalViewMode>> = 
                     <AnimatedPressable
                         style={[buttonAnimatedStylesHistory, style.secundaryButton]}
                         onPressIn={onPressInHistory}
-                        onPressOut={onPressOutPlayAgain}
+                        onPressOut={onPressOutHistory}
                         onPress={handleGoHistory}
                     >
                         <Text style={style.secundaryButtonText}>Ver histórico</Text>
@@ -91,6 +92,7 @@ const style = StyleSheet.create({
         color: colors.grayscale.gray100,
         marginTop: 20,
         marginBottom: 12,
+        paddingHorizontal: 24,
         textAlign: "center",
         fontFamily: "Baloo2_800ExtraBold"
     },

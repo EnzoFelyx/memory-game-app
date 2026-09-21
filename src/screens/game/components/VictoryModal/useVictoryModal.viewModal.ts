@@ -1,5 +1,6 @@
 import { useModalAnimation } from "@/animations/hooks/useModalAnimation"
 import { usePressAnimation } from "@/animations/hooks/usePressAnimation"
+import { useGameStore } from "@/shared/stores/game.store"
 import { VictoryModalParams } from "."
 
 export const useVictoryModalViewMode = ({
@@ -9,6 +10,14 @@ export const useVictoryModalViewMode = ({
 }: VictoryModalParams) => {
 
     const { animatedStyle, close } = useModalAnimation({ isVisible: visible })
+
+    const { timeElapsed } = useGameStore()
+
+    const minutes = Math.floor(timeElapsed / 60)
+
+    const seconds = timeElapsed % 60
+
+    const timeString = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
 
     const handlePlayAgain = () => {
         close(onPlayAgain)
@@ -40,6 +49,7 @@ export const useVictoryModalViewMode = ({
         onPressOutHistory,
         onPressOutPlayAgain,
         buttonAnimatedStylesHistory,
-        buttonAnimatedStylesPlayAgain
+        buttonAnimatedStylesPlayAgain,
+        timeString
     }
 }
