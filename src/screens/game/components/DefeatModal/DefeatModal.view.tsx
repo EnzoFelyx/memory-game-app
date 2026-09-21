@@ -9,9 +9,9 @@ import { useDefeatModalViewMode } from "./useDefeatModal.viewMode"
 
 export const DefeatModalView: FC<ReturnType<typeof useDefeatModalViewMode>> = ({
     onGoHome,
-    onTryAgain,
     visible,
-    animatedStyle
+    animatedStyle,
+    handleTryAgain
 }) => {
 
     return (
@@ -19,7 +19,7 @@ export const DefeatModalView: FC<ReturnType<typeof useDefeatModalViewMode>> = ({
             <BlurView intensity={10} tint="dark" style={style.overlay}>
                 <Animated.View style={[animatedStyle, style.container]}>
 
-                    <Pressable style={style.closeButton}>
+                    <Pressable style={style.closeButton} onPress={onGoHome}>
                         <MaterialCommunityIcons name="close" color={colors.grayscale.gray100} size={16} />
                     </Pressable>
 
@@ -27,7 +27,7 @@ export const DefeatModalView: FC<ReturnType<typeof useDefeatModalViewMode>> = ({
                     <Text style={style.title}>Opss... seu tempo acabou!</Text>
                     <Text style={style.subtitle}>O tempo para finalizar o desafio terminou. Tentar novamente?</Text>
 
-                    <Pressable style={style.button}>
+                    <Pressable style={style.button} onPress={handleTryAgain}>
                         <Text style={style.buttonText}>Jogar novamente</Text>
                     </Pressable>
 
@@ -87,6 +87,7 @@ const style = StyleSheet.create({
     closeButton: {
         position: "absolute",
         right: 22,
-        top: 22
+        top: 22,
+        padding: 4,
     }
 })

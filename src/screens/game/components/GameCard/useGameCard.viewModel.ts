@@ -19,17 +19,15 @@ export const useGameCardViewModel = ({ card, index }: Props) => {
 
     const { status } = useGameStore()
 
-    const { animatedStyle: sucessAnimationStyle, playSucess } = useCardSucessAnimation()
-
+    const { animatedStyle: sucessAnimationStyle, playSucess, resetTimeOut } = useCardSucessAnimation()
+    const { animatedStyle: timeoutAnimatiedStyle, fallTriger, resetTrigger } = useCardTimeoutAnimation()
     const { animatedStyle: animatedSelection, onPressIn, onPressOut } = useCardSelectionAnimation()
-
+    const entry = useCardEntryAnimation({ cardIndex: index })
     const { animatedStyle: animatedShake, shakeCards } = useCardShakeAnimation()
 
-    const { animatedStyle: timeoutAnimatiedStyle, fallTriger, resetTrigger } = useCardTimeoutAnimation()
 
     const isMissMatched = useGameStore((state) => state.missMatchedIds.includes(card.id))
 
-    const entry = useCardEntryAnimation({ cardIndex: index })
 
     const rotation = useSharedValue(card.isFlipped ? 180 : 0)
 
@@ -73,7 +71,11 @@ export const useGameCardViewModel = ({ card, index }: Props) => {
             const randomDelay = Math.random() * 200
             fallTriger(randomDelay)
         }
-    }, [status, card.isMatched])
+        if (status === 'countdown') {
+            resetTimeOut()
+            resetTrigger()
+        }
+    }, [status, card.isMatched, fallTriger, resetTimeOut, resetTrigger])
 
 
     return {

@@ -14,7 +14,10 @@ export const GameView: FC<ReturnType<typeof useGameViewModel>> = ({
     selectedTheme,
     visibleCounting,
     handleCountdown,
-    handleGoBack
+    handleGoBack,
+    visibleModal,
+    handleExit,
+    handleTryAgain
 }) => {
 
     return (
@@ -26,7 +29,7 @@ export const GameView: FC<ReturnType<typeof useGameViewModel>> = ({
                 <CardGrid />
             </View>
             <CountDown visibleCounting={visibleCounting} handleCountdown={handleCountdown} />
-            <DefeatModal visible={true} onGoHome={() => { }} onTryAgain={() => { }} />
+            <DefeatModal visible={visibleModal} onGoHome={handleExit} onTryAgain={handleTryAgain} />
         </SafeAreaView>
     )
 }

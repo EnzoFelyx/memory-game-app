@@ -3,12 +3,16 @@ import { DefeatModalParams } from "."
 
 export const useDefeatModalViewMode = ({ onGoHome, onTryAgain, visible }: DefeatModalParams) => {
 
-    const { animatedStyle } = useModalAnimation({ isVisible: visible })
+    const { animatedStyle, close } = useModalAnimation({ isVisible: visible })
+
+    const handleTryAgain = () => {
+        close(onTryAgain)
+    }
 
     return {
         onGoHome,
-        onTryAgain,
         visible,
-        animatedStyle
+        animatedStyle,
+        handleTryAgain
     }
 }

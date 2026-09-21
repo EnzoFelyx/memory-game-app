@@ -1,6 +1,6 @@
 import { CardEntryAnimationType } from "@/animations/config/animation.config";
 import { useAnimationStore } from "@/animations/store/animation.store";
-import { getEntryAnimationDuration } from "@/animations/utils/animation.utils";
+import { getEntryAnimationDuration, getFallAnimationDuration } from "@/animations/utils/animation.utils";
 import { Difficulty } from "@/shared/interfaces/difficulty";
 import { useGameStore } from "@/shared/stores/game.store";
 import { challengeTheme, diffConfigs } from "@/shared/utils/challenger";
@@ -10,14 +10,16 @@ import { useCallback, useEffect, useState } from "react";
 
 export const useGameViewModel = () => {
 
+    const [visibleModal, setVisibleModal] = useState(false)
+
     const { difficulty, themeId } = useLocalSearchParams<{
         themeId: string;
         difficulty: Difficulty
     }>()
 
-    const { entryAnimationType, setShouldAnimate, setEntryAnimationType } = useAnimationStore()
+    const { entryAnimationType, setShouldAnimate, setEntryAnimationType, shouldAnimate } = useAnimationStore()
 
-    const { initGame, clearGame, status, previewAllCards, hideAllCards, startGame, cards } = useGameStore()
+    const { initGame, clearGame, status, previewAllCards, hideAllCards, startGame, cards, resetGame } = useGameStore()
 
     const [visibleCounting, setVisibleCounting] = useState(true)
 
@@ -82,8 +84,31 @@ export const useGameViewModel = () => {
         themeId,
     ])
 
+    const handleTryAgain = useCallback(() => {
+        setVisibleModal(false)
+        setShouldAnimate(false)
+        resetGame()
+
+        createSequence().wait(300).then(() => setVisibleCounting(true)).run()
+    }, [resetGame, setVisibleCounting, shouldAnimate])
+
     const handleGoBack = () => {
         router.back()
+    }
+
+    useEffect(() => {
+        if (status === "finished") {
+
+        }
+        if (status === 'timeout') {
+            createSequence().wait(getFallAnimationDuration()).then(() => setVisibleModal(true)).run()
+        }
+    }, [status])
+
+    const handleExit = () => {
+        clearGame()
+        setVisibleModal(false)
+        createSequence().wait(200).then(() => router.replace("/(private)/home")).run()
     }
 
     return {
@@ -92,5 +117,8 @@ export const useGameViewModel = () => {
         visibleCounting,
         handleCountdown,
         handleGoBack,
+        visibleModal,
+        handleTryAgain,
+        handleExit,
     }
 }

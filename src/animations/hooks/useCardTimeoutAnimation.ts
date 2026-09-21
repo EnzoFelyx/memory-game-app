@@ -1,4 +1,5 @@
 import { Easing, useAnimatedStyle, useSharedValue, withDelay, withTiming } from "react-native-reanimated"
+import { ANIMATION_TIMINGS } from "../config/animation.config"
 
 export const useCardTimeoutAnimation = () => {
 
@@ -10,19 +11,23 @@ export const useCardTimeoutAnimation = () => {
 
     const fallTriger = (delay: number) => {
 
+        const config = ANIMATION_TIMINGS.fall
+
         const randomRotation = (Math.random() - 0.5) * 60
 
         translateY.value = withDelay(delay,
-            withTiming(800, { duration: 600, easing: Easing.in(Easing.cubic) }),
+            withTiming(800, { duration: config.duration, easing: Easing.in(Easing.cubic) }),
         )
 
-        rotation.value = withDelay(delay, withTiming(randomRotation, { duration: 300, easing: Easing.out(Easing.ease) }))
+        rotation.value = withDelay(delay, withTiming(randomRotation, { duration: config.rotation, easing: Easing.out(Easing.ease) }))
 
-        opacity.value = withDelay(delay + 300, withTiming(0, { duration: 200 }))
+        opacity.value = withDelay(delay + config.opacityDelay, withTiming(0, { duration: config.opacityDuration }))
     }
 
     const resetTrigger = () => {
         translateY.value = 0
+        rotation.value = 0
+        opacity.value = 1
     }
 
     const animatedStyle = useAnimatedStyle(() => ({

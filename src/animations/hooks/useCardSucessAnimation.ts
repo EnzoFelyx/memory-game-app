@@ -16,6 +16,11 @@ export const useCardSucessAnimation = () => {
         opacity.value = withDelay(600, withTiming(0, { duration: 300 }))
     }, [scale, opacity])
 
+    const resetTimeOut = () => {
+        opacity.value = 1
+        scale.value = 1
+    }
+
     const animatedStyle = useAnimatedStyle(() => ({
         opacity: opacity.value,
         transform: [{ scale: scale.value }]
@@ -23,7 +28,8 @@ export const useCardSucessAnimation = () => {
 
     return {
         animatedStyle,
-        playSucess
+        playSucess,
+        resetTimeOut
     }
 
 }
