@@ -5,7 +5,9 @@ import { Difficulty } from "@/shared/interfaces/difficulty";
 import { useGameStore } from "@/shared/stores/game.store";
 import { challengeTheme, diffConfigs } from "@/shared/utils/challenger";
 import { createSequence } from "@/shared/utils/sequence";
-import { router, useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams, useNavigation } from "expo-router";
+import type { NativeStackNavigationProp } from "expo-router/native-stack";
+import { ParamListBase, usePreventRemove } from "expo-router/react-navigation";
 import { useCallback, useEffect, useState } from "react";
 
 export const useGameViewModel = () => {
@@ -17,9 +19,13 @@ export const useGameViewModel = () => {
         difficulty: Difficulty
     }>()
 
+    const [showExitModal, setShowExitModal] = useState(false)
+
+    const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>()
+
     const { entryAnimationType, setShouldAnimate, setEntryAnimationType, shouldAnimate } = useAnimationStore()
 
-    const { initGame, clearGame, status, previewAllCards, hideAllCards, startGame, cards, resetGame } = useGameStore()
+    const { initGame, clearGame, status, previewAllCards, hideAllCards, startGame, cards, resetGame, pauseGame, resumeGame } = useGameStore()
 
     const [visibleCounting, setVisibleCounting] = useState(true)
 
@@ -111,14 +117,46 @@ export const useGameViewModel = () => {
         createSequence().wait(200).then(() => router.replace("/(private)/home")).run()
     }
 
+    const handleOpenExitModal = useCallback(() => {
+        if (status === "playing") {
+            pauseGame()
+            setShowExitModal(true)
+        }
+    }, [pauseGame, status])
+
+    const isGameActive = status === "playing" || status === "paused"
+
+    // desliga o swipe nativo do iOS durante a partida (senão a tela sai e é puxada de volta);
+    // o swipe passa a ser detectado pelo EdgeSwipeDetector
+    useEffect(() => {
+        navigation.setOptions({ gestureEnabled: !isGameActive })
+    }, [navigation, isGameActive])
+
+    // intercepta o botão/gesto de voltar do Android durante a partida
+    usePreventRemove(status === "playing", handleOpenExitModal)
+
+    const handleConfirm = useCallback(() => {
+        setShowExitModal(false)
+        resetGame()
+        router.replace("/(private)/home")
+    }, [resetGame])
+
+    const handleCancelExit = useCallback(() => {
+        resumeGame()
+        setShowExitModal(false)
+    }, [])
+
     return {
-        difficulty,
         selectedTheme,
         visibleCounting,
         handleCountdown,
-        handleGoBack,
         visibleModal,
         handleTryAgain,
         handleExit,
+        showExitModal,
+        handleOpenExitModal,
+        isPlaying: status === "playing",
+        handleConfirm,
+        handleCancelExit
     }
 }

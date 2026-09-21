@@ -6,30 +6,37 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { CardGrid } from "./components/CardGrid"
 import { CountDown } from "./components/CountDown"
 import { DefeatModal } from "./components/DefeatModal"
+import { EdgeSwipeDetector } from "./components/EdgeSwipeDetector"
+import { ExitConfirmModal } from "./components/ExitConfirmModal"
 import { GameHeader } from "./components/GameHeader"
 import { useGameViewModel } from "./useGame.viewModel"
 
 export const GameView: FC<ReturnType<typeof useGameViewModel>> = ({
-    difficulty,
     selectedTheme,
     visibleCounting,
     handleCountdown,
-    handleGoBack,
     visibleModal,
     handleExit,
-    handleTryAgain
+    handleTryAgain,
+    handleCancelExit,
+    handleConfirm,
+    handleOpenExitModal,
+    isPlaying,
+    showExitModal
 }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <GameHeader handleGoBack={handleGoBack} />
+            <GameHeader handleGoBack={handleOpenExitModal} />
             <View style={styles.info}>
                 <Text style={styles.title}>{selectedTheme?.title}</Text>
                 <Text style={styles.subTitle}>Encontre todos os pares dentro do tempo!</Text>
                 <CardGrid />
             </View>
+            <EdgeSwipeDetector enabled={isPlaying} onSwipe={handleOpenExitModal} />
             <CountDown visibleCounting={visibleCounting} handleCountdown={handleCountdown} />
             <DefeatModal visible={visibleModal} onGoHome={handleExit} onTryAgain={handleTryAgain} />
+            <ExitConfirmModal visible={showExitModal} onCancel={handleCancelExit} onConfirm={handleConfirm} />
         </SafeAreaView>
     )
 }
