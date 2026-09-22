@@ -20,7 +20,7 @@ export const useConfettiEffectViewModel = ({
     const cleanUp = useCallback(() => {
         const now = Date.now()
         const maxLifeTime = 6000
-        setPieces((prev) => prev.filter((confetti) => now - confetti.createdAt > maxLifeTime)) //
+        setPieces((prev) => prev.filter((confetti) => now - confetti.createdAt < maxLifeTime))
     }, [])
 
     useEffect(() => {
@@ -66,9 +66,7 @@ export const useConfettiEffectViewModel = ({
     }, [active, cleanUp, continuousCount, continuousInterval, burstCount])
 
     return {
-        intervalRef,
-        cleanUpRef,
-        idCounterRef,
-        pieces
+        pieces,
+        active
     }
 }

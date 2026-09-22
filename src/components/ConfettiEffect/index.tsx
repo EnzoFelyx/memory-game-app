@@ -2,7 +2,7 @@ import { ConfettiEffectView } from "./ConfettiEffect.view"
 import { useConfettiEffectViewModel } from "./useConfettiEffect.viewModel"
 
 export interface ConfettiEffectParams {
-    active?: boolean
+    active: boolean
     burstCount?: number
     continuousCount?: number
     continuousInterval?: number

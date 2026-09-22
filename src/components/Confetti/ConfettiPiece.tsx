@@ -1,5 +1,5 @@
 import { ConfettiShapeType } from "@/shared/utils/confetti"
-import { FC, useEffect } from "react"
+import { FC, memo, useEffect } from "react"
 import { Dimensions, StyleProp, StyleSheet, ViewStyle } from "react-native"
 import Animated, { Easing, interpolate, useAnimatedStyle, useSharedValue, withDelay, withTiming } from "react-native-reanimated"
 
@@ -35,7 +35,7 @@ const confettiShapesType: (size: number, shape: ConfettiShapeType) => StyleProp<
 
 const { height: screenHeight } = Dimensions.get("window")
 
-export const ConfettiPiece: FC<Props> = ({
+export const ConfettiPiece: FC<Props> = memo(({
     color,
     delay,
     duration,
@@ -53,9 +53,8 @@ export const ConfettiPiece: FC<Props> = ({
 
     useEffect(() => {
         progress.value = withDelay(delay, withTiming(1, { duration, easing: Easing.linear }))
+        rotateZ.value = withDelay(delay, withTiming(360 * rotationSpeed * swingDuration, { duration, easing: Easing.linear }))
     }, [])
-
-    rotateZ.value = withDelay(delay, withTiming(360 * rotationSpeed * swingDuration, { duration, easing: Easing.linear }))
 
     const animatedStyle = useAnimatedStyle(() => {
         const translateY = interpolate(progress.value, [0, 1], [-50, screenHeight + 100])
@@ -74,9 +73,11 @@ export const ConfettiPiece: FC<Props> = ({
     })
 
     return (
-        <Animated.View style={[styles.piece, animatedStyle, confettiShapesType(size, shape)]} />
+        <Animated.View style={[styles.piece, animatedStyle, confettiShapesType(size, shape), { left: startX, backgroundColor: color, width: size, height: size }]} />
     )
-}
+})
+
+ConfettiPiece.displayName = "ConfettiPiece"
 
 const styles = StyleSheet.create({
     piece: {

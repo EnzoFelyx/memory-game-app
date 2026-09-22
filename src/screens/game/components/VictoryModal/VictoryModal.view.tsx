@@ -1,3 +1,4 @@
+import { ConfettiEffect } from "@/components/ConfettiEffect"
 import { Text } from "@/components/Text"
 import { colors, gradients } from "@/styles/colors"
 import { MaterialCommunityIcons } from "@expo/vector-icons"
@@ -30,6 +31,8 @@ export const VictoryModalView: FC<ReturnType<typeof useVictoryModalViewMode>> = 
             visible={visible}
         >
             <BlurView style={style.overlay}>
+                <ConfettiEffect active={visible} />
+
                 <Animated.View style={[style.container, animatedStyle]}>
                     <MaterialCommunityIcons name="trophy-outline" color={colors.accent.lightPurple} size={64} />
                     <Text style={style.title}>Você concluiu o desafio em {timeString}</Text>
