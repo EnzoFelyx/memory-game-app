@@ -21,7 +21,7 @@ export type ConfettiShapeType = 'square' | 'rectangle' | 'circle'
 
 export const SHAPES: ConfettiShapeType[] = ['circle', 'square', 'rectangle']
 
-interface ConfettiConfig {
+export interface ConfettiConfig {
     id: number
     color: string
     startX: number
