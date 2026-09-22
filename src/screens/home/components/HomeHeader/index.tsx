@@ -3,6 +3,7 @@ import { Text } from "@/components/Text"
 import { useAuthStore } from "@/shared/stores/auth.store"
 import { colors } from "@/styles/colors"
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { router } from "expo-router"
 import { Pressable, StyleSheet, View } from "react-native"
 import Animated from "react-native-reanimated"
 
@@ -29,6 +30,7 @@ export const HomeHeader = () => {
                 <View style={{ width: 40 }}>
                     <AnimatedPressable
                         style={[styles.trophyContainer, animatedStyles.animatedStyles]}
+                        onPress={() => router.push("/(private)/history")}
                         onPressIn={animatedStyles.onPressIn}
                         onPressOut={animatedStyles.onPressOut}
                     >

@@ -3,6 +3,7 @@ import { useAnimationStore } from "@/animations/store/animation.store";
 import { getEntryAnimationDuration, getFallAnimationDuration } from "@/animations/utils/animation.utils";
 import { Difficulty } from "@/shared/interfaces/difficulty";
 import { useGameStore } from "@/shared/stores/game.store";
+import { useRankingStore } from "@/shared/stores/ranking.store";
 import { challengeTheme, diffConfigs } from "@/shared/utils/challenger";
 import { createSequence } from "@/shared/utils/sequence";
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
@@ -13,6 +14,8 @@ import { useCallback, useEffect, useState } from "react";
 export const useGameViewModel = () => {
 
     const [visibleModal, setVisibleModal] = useState(false)
+
+    const { addScore } = useRankingStore()
 
     const { difficulty, themeId } = useLocalSearchParams<{
         themeId: string;
@@ -27,7 +30,7 @@ export const useGameViewModel = () => {
 
     const { entryAnimationType, setShouldAnimate, setEntryAnimationType, shouldAnimate } = useAnimationStore()
 
-    const { initGame, clearGame, status, previewAllCards, hideAllCards, startGame, cards, resetGame, pauseGame, resumeGame } = useGameStore()
+    const { initGame, clearGame, status, previewAllCards, hideAllCards, startGame, cards, resetGame, pauseGame, resumeGame, timeElapsed, challenge } = useGameStore()
 
     const [visibleCounting, setVisibleCounting] = useState(true)
 
@@ -104,11 +107,18 @@ export const useGameViewModel = () => {
     useEffect(() => {
         if (status === "finished") {
             setShowVictory(true)
+            if (challenge) {
+                addScore({
+                    category: challenge.title,
+                    difficulty: challenge.difficulty,
+                    time: timeElapsed
+                })
+            }
         }
         if (status === 'timeout') {
             createSequence().wait(getFallAnimationDuration()).then(() => setVisibleModal(true)).run()
         }
-    }, [status])
+    }, [status, challenge, addScore, timeElapsed])
 
     const handleExit = () => {
         clearGame()
