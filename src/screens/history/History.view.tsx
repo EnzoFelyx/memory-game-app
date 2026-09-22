@@ -6,12 +6,13 @@ import { useHistoryViewModel } from "./useHistory.viewModel"
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { router } from "expo-router"
 import { SafeAreaView } from "react-native-safe-area-context"
+import { MatchCard } from "./components/MatchCard"
 
 export const HistoryView: FC<ReturnType<typeof useHistoryViewModel>> = ({
-    scores
+    matches,
+    avarageTime,
+    totalGames
 }) => {
-
-    console.log(scores)
 
     return (
         <SafeAreaView style={styles.container}>
@@ -27,13 +28,12 @@ export const HistoryView: FC<ReturnType<typeof useHistoryViewModel>> = ({
 
             <View style={styles.content}>
                 <FlatList
-                    data={scores}
+                    data={matches}
                     renderItem={({ item }) => (
-                        <View>
-                            <Text style={{ color: '#ffff' }}>{item.category}</Text>
-                        </View>
+                        <MatchCard match={item} />
                     )}
                     keyExtractor={({ id }) => `score-${id}`}
+                    style={{ width: "100%" }}
                 />
             </View>
         </SafeAreaView>
@@ -72,7 +72,12 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: "Baloo2_700Bold",
         fontSize: 20,
-        color: colors.grayscale.gray100
+        color: colors.grayscale.gray100,
+        position: "absolute",
+        width: "100%",
+        right: 24,
+        textAlign: "center",
+        paddingTop: 30
     }
 
 })
