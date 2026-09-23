@@ -1,11 +1,10 @@
 import { colors } from "@/styles/colors"
 import { FC } from "react"
 import { FlatList, StyleSheet, View } from "react-native"
-import { useHistoryViewModel } from "./useHistory.viewModel"
-
 import { SafeAreaView } from "react-native-safe-area-context"
+import { AnimatedHistoryCard } from "./components/AnimatedHistoryCard"
 import { ListHeader } from "./components/ListHeader"
-import { MatchCard } from "./components/MatchCard"
+import { useHistoryViewModel } from "./useHistory.viewModel"
 
 export const HistoryView: FC<ReturnType<typeof useHistoryViewModel>> = ({
     matches,
@@ -18,8 +17,8 @@ export const HistoryView: FC<ReturnType<typeof useHistoryViewModel>> = ({
             <View style={styles.content}>
                 <FlatList
                     data={matches}
-                    renderItem={({ item }) => (
-                        <MatchCard match={item} />
+                    renderItem={({ item, index }) => (
+                        <AnimatedHistoryCard index={index} match={item} />
                     )}
                     keyExtractor={({ id }) => `score-${id}`}
                     style={{ width: "100%" }}
