@@ -9,7 +9,8 @@ import { useHistoryViewModel } from "./useHistory.viewModel"
 export const HistoryView: FC<ReturnType<typeof useHistoryViewModel>> = ({
     matches,
     avarageTime,
-    totalGames
+    totalGames,
+    deleteScore
 }) => {
 
     return (
@@ -18,7 +19,11 @@ export const HistoryView: FC<ReturnType<typeof useHistoryViewModel>> = ({
                 <FlatList
                     data={matches}
                     renderItem={({ item, index }) => (
-                        <AnimatedHistoryCard index={index} match={item} />
+                        <AnimatedHistoryCard
+                            index={index}
+                            match={item}
+                            onDelete={() => deleteScore(item.id)}
+                        />
                     )}
                     keyExtractor={({ id }) => `score-${id}`}
                     style={{ width: "100%" }}

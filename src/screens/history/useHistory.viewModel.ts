@@ -19,7 +19,7 @@ export interface FormattedMatch {
 
 export const useHistoryViewModel = () => {
 
-    const { scores } = useRankingStore()
+    const { scores, deleteScore } = useRankingStore()
 
     const matches: FormattedMatch[] = scores.map((score, index) => ({
         id: score.id,
@@ -37,6 +37,7 @@ export const useHistoryViewModel = () => {
     return {
         matches,
         avarageTime,
-        totalGames
+        totalGames,
+        deleteScore
     }
 }

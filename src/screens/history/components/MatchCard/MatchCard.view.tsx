@@ -9,7 +9,7 @@ import { useMatchCardViewModel } from "./useMatchCard.viewModel"
 export const MatchCardView: FC<ReturnType<typeof useMatchCardViewModel>> = ({ match }) => {
 
     return (
-        <View style={styles.container}>
+        <View collapsable={false} style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.title}>{match.category}</Text>
                 <Text style={styles.position}>{match.position} °</Text>
