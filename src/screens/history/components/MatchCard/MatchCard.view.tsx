@@ -10,26 +10,27 @@ export const MatchCardView: FC<ReturnType<typeof useMatchCardViewModel>> = ({ ma
 
     return (
         <View style={styles.container}>
-            <View>
-                <Text>{match.category}</Text>
-                <Text>{match.position}</Text>
+            <View style={styles.header}>
+                <Text style={styles.title}>{match.category}</Text>
+                <Text style={styles.position}>{match.position} °</Text>
             </View>
 
-            <View>
-                <View>
-                    <Text>{match.time}</Text>
+            <View style={styles.footer}>
+                <View style={styles.infoBage}>
+                    <MaterialCommunityIcons name="calendar-outline" size={16} color={colors.grayscale.gray300} />
+                    <Text style={styles.infoText}>{match.date}</Text>
                 </View>
 
-                <View>
+                <View style={styles.infoBage}>
                     <MaterialCommunityIcons name="clock-outline" size={16} color={colors.grayscale.gray300} />
-                    <Text>{match.time}</Text>
+                    <Text style={styles.infoText}>{match.time}</Text>
                 </View>
 
-                <View>
+                <View style={styles.infoBage}>
                     <DiffIcon
                         diff={match.difficulty}
                         inactiveColor={colors.grayscale.gray200}
-                        color={colors.grayscale.gray200}
+                        color={colors.feedback.info}
                         isSelected
                     />
                 </View>
@@ -47,6 +48,43 @@ const styles = StyleSheet.create({
         padding: 24,
         borderWidth: 1,
         borderColor: colors.grayscale.gray400,
-        marginBottom: 8
+        marginBottom: 16
+    },
+    header: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center"
+    },
+    title: {
+        fontSize: 18,
+        fontFamily: "Baloo2_800ExtraBold",
+        color: colors.grayscale.gray100,
+        width: "60%"
+    },
+    position: {
+        fontSize: 24,
+        fontFamily: "Baloo2_800ExtraBold",
+        color: colors.accent.cyan
+    },
+    footer: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 12
+    },
+    infoBage: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: colors.grayscale.gray400,
+        paddingHorizontal: 12,
+        paddingVertical: 8,
+        borderRadius: 8,
+        height: 32,
+        gap: 6
+    },
+    infoText: {
+        lineHeight: 20,
+        fontFamily: "Baloo2_500Medium",
+        color: colors.grayscale.gray200
     }
 })
