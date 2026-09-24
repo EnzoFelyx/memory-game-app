@@ -1,5 +1,7 @@
-import { Stack } from "expo-router";
+import { DarkTheme, Stack, ThemeProvider } from "expo-router";
 import "react-native-reanimated";
+
+import { colors } from "@/styles/colors";
 
 import { Baloo2_400Regular } from '@expo-google-fonts/baloo-2/400Regular';
 import { Baloo2_500Medium } from '@expo-google-fonts/baloo-2/500Medium';
@@ -12,6 +14,15 @@ import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 SplashScreen.preventAutoHideAsync();
+
+const theme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    background: colors.grayscale.gray700,
+    card: colors.grayscale.gray700,
+  },
+};
 
 export default function RootLayout() {
 
@@ -34,12 +45,19 @@ export default function RootLayout() {
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <Stack screenOptions={{ headerShown: false }} >
-        <Stack.Screen name="(public)" />
-        <Stack.Screen name="(private)" />
-        <Stack.Screen name="index" />
-      </Stack>
+    <GestureHandlerRootView style={{ flex: 1, backgroundColor: colors.grayscale.gray700 }}>
+      <ThemeProvider value={theme}>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: colors.grayscale.gray700 },
+          }}
+        >
+          <Stack.Screen name="(public)" />
+          <Stack.Screen name="(private)" />
+          <Stack.Screen name="index" />
+        </Stack>
+      </ThemeProvider>
     </GestureHandlerRootView>
   );
 }
