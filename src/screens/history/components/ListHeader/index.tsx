@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginRight: 16,
         borderWidth: 1,
-        borderColor: colors.grayscale.gray400
+        borderColor: colors.grayscale.gray400,
+        zIndex: 2,
     },
     title: {
         fontFamily: "Baloo2_700Bold",
@@ -68,12 +69,13 @@ const styles = StyleSheet.create({
         position: "absolute",
         width: "100%",
         textAlign: "center",
-        top: 21
+        top: 21,
+        zIndex: 1
     },
     rankingTitle: {
         color: colors.grayscale.gray300,
         fontSize: 16,
         marginBottom: 16,
-marginLeft: 4,
+        marginLeft: 4,
     }
 })

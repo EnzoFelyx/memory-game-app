@@ -24,7 +24,8 @@ export const GameView: FC<ReturnType<typeof useGameViewModel>> = ({
     handleOpenExitModal,
     isPlaying,
     showExitModal,
-    showVictory
+    showVictory,
+    handleGoToHistory
 }) => {
 
     return (
@@ -60,7 +61,7 @@ export const GameView: FC<ReturnType<typeof useGameViewModel>> = ({
 
             <VictoryModal
                 visible={showVictory}
-                onGoHistory={() => { }}
+                onGoHistory={handleGoToHistory}
                 onPlayAgain={handleTryAgain}
             />
 

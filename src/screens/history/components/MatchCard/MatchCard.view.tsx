@@ -6,13 +6,18 @@ import { FC } from "react"
 import { StyleSheet, View } from "react-native"
 import { useMatchCardViewModel } from "./useMatchCard.viewModel"
 
-export const MatchCardView: FC<ReturnType<typeof useMatchCardViewModel>> = ({ match }) => {
+export const MatchCardView: FC<ReturnType<typeof useMatchCardViewModel>> = ({ match, positionColors }) => {
 
     return (
         <View collapsable={false} style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.title}>{match.category}</Text>
-                <Text style={styles.position}>{match.position} °</Text>
+                <Text
+                    style={{
+                        ...styles.position, color: positionColors[match.position - 1] ?? colors.grayscale.gray300
+                    }}
+                >
+                    {match.position} °</Text>
             </View>
 
             <View style={styles.footer}>

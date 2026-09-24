@@ -1,6 +1,7 @@
 import { Dimensions, LayoutChangeEvent } from "react-native"
 import { Gesture } from "react-native-gesture-handler"
-import { Extrapolation, interpolate, runOnJS, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated"
+import { Extrapolation, interpolate, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated"
+import { runOnJS } from "react-native-worklets"
 
 interface Props {
     onDelete: () => void
@@ -64,7 +65,7 @@ export const useSwipeToDelete = ({ onDelete }: Props) => {
     }))
 
     const deleteIconStyle = useAnimatedStyle(() => ({
-        opacity: interpolate(translateX.value, [-80, -40, 0], [1, 0.5, 0])
+        opacity: interpolate(translateX.value, [-160, -80, 0], [1, 0.5, 0])
     }))
 
     return { containerAnimatedStyle, cardAnimatedStyle, deleteIconStyle, panGesture, onLayout }
