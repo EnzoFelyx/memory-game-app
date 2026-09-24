@@ -6,7 +6,7 @@ import { FC } from "react"
 import { StyleSheet, View } from "react-native"
 import { useMatchCardViewModel } from "./useMatchCard.viewModel"
 
-export const MatchCardView: FC<ReturnType<typeof useMatchCardViewModel>> = ({ match, positionColors }) => {
+export const MatchCardView: FC<ReturnType<typeof useMatchCardViewModel>> = ({ match, positionColors, diffColor }) => {
 
     return (
         <View collapsable={false} style={styles.container}>
@@ -35,7 +35,7 @@ export const MatchCardView: FC<ReturnType<typeof useMatchCardViewModel>> = ({ ma
                     <DiffIcon
                         diff={match.difficulty}
                         inactiveColor={colors.grayscale.gray200}
-                        color={colors.feedback.info}
+                        color={diffColor}
                         isSelected
                     />
                 </View>
