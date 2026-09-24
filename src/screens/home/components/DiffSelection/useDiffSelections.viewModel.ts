@@ -1,6 +1,7 @@
 import { useNumberAnimation } from "@/animations/hooks/useNumberAnimations"
 import { Difficulty } from "@/shared/interfaces/difficulty"
 import { diffConfigs } from "@/shared/utils/challenger"
+import { getDiffColor } from "@/shared/utils/diff"
 import { useEffect } from "react"
 import { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated"
 
@@ -14,6 +15,8 @@ export interface DiffSelectionsViewModelProps {
 export const useDiffSelectionsViewModel = ({ selectedDiff, setSelectedDiff }: DiffSelectionsViewModelProps) => {
 
     const diffConfig = diffConfigs[selectedDiff]
+
+    const diffColor = getDiffColor(selectedDiff)
 
     const { animatedStyle: timeAnimatedStyle } = useNumberAnimation(diffConfig.estimedTime)
 
@@ -41,6 +44,7 @@ export const useDiffSelectionsViewModel = ({ selectedDiff, setSelectedDiff }: Di
         setSelectedDiff,
         animatedIndicatorStyle,
         diffConfig,
+        diffColor,
         timeAnimatedStyle
     }
 }

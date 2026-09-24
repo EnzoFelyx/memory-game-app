@@ -119,17 +119,17 @@ export interface DiffConfig {
 export const diffConfigs: Record<Difficulty, DiffConfig> = {
   Fácil: {
     diff: "Fácil",
-    timeLimit: 300,
-    estimedTime: "5 min"
+    timeLimit: 60,
+    estimedTime: "45 sec"
   },
   Médio: {
     diff: "Médio",
-    timeLimit: 60,
-    estimedTime: "4 min"
+    timeLimit: 30,
+    estimedTime: "20 sec"
   },
   Difícil: {
     diff: "Difícil",
-    timeLimit: 10,
-    estimedTime: "3 min"
+    timeLimit: 15,
+    estimedTime: "10 sec"
   }
 }

@@ -13,6 +13,7 @@ export const DiffSelectionsView: FC<ReturnType<typeof useDiffSelectionsViewModel
     setSelectedDiff,
     animatedIndicatorStyle,
     diffConfig,
+    diffColor,
     timeAnimatedStyle
 }) => {
 
@@ -23,7 +24,7 @@ export const DiffSelectionsView: FC<ReturnType<typeof useDiffSelectionsViewModel
                 <Animated.View style={[styles.timeIndicator, timeAnimatedStyle]}>
                     <MaterialCommunityIcons
                         name="clock-outline"
-                        color={colors.feedback.info}
+                        color={diffColor}
                         size={16}
                     />
                     <Text>{diffConfig.estimedTime}</Text>
