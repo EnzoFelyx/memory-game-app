@@ -9,9 +9,10 @@ import { StatCard } from "../StatCard"
 interface Props {
     totalGames: number
     avarageTime: string
+    onLogout: () => void
 }
 
-export const ListHeader: FC<Props> = ({ avarageTime, totalGames }) => {
+export const ListHeader: FC<Props> = ({ avarageTime, totalGames, onLogout }) => {
     return (
         <>
             <View style={styles.header}>
@@ -22,6 +23,12 @@ export const ListHeader: FC<Props> = ({ avarageTime, totalGames }) => {
                     <MaterialCommunityIcons name="arrow-left" color={colors.grayscale.gray100} size={24} />
                 </Pressable>
                 <Text style={styles.title}>Histórico de partida</Text>
+                <Pressable
+                    onPress={onLogout}
+                    style={styles.backButton}
+                >
+                    <MaterialCommunityIcons name="logout" color={colors.accent.red} size={20} style={{marginLeft: 4}} />
+                </Pressable>
             </View>
 
             <View style={{ flexDirection: "row", gap: 16, marginBottom: 24 }}>
@@ -49,7 +56,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         paddingTop: 16,
-        paddingBottom: 30
+        paddingBottom: 30,
+        justifyContent: "space-between"
     },
     backButton: {
         width: 40,
@@ -57,7 +65,7 @@ const styles = StyleSheet.create({
         borderRadius: 28,
         justifyContent: "center",
         alignItems: "center",
-        marginRight: 16,
+
         borderWidth: 1,
         borderColor: colors.grayscale.gray400,
         zIndex: 2,

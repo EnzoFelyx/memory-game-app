@@ -1,4 +1,5 @@
 import { Difficulty } from "@/shared/interfaces/difficulty"
+import { useAuthStore } from "@/shared/stores/auth.store"
 import { useRankingStore } from "@/shared/stores/ranking.store"
 import { format } from 'date-fns'
 
@@ -30,6 +31,8 @@ export const useHistoryViewModel = () => {
         date: format(score.date, "dd/MM/yy")
     }))
 
+    const { logout } = useAuthStore()
+
     const totalGames = scores.length
 
     const avarageTime = scores.length > 0 ? formatTIme(Math.round(scores.reduce((acc, score) => acc + score.time / scores.length, 0))) : "00:00"
@@ -38,6 +41,7 @@ export const useHistoryViewModel = () => {
         matches,
         avarageTime,
         totalGames,
-        deleteScore
+        deleteScore,
+        logout
     }
 }

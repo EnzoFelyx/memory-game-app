@@ -1,6 +1,7 @@
 import { DarkTheme, Stack, ThemeProvider } from "expo-router";
 import "react-native-reanimated";
 
+import { useAuthStore } from "@/shared/stores/auth.store";
 import { colors } from "@/styles/colors";
 
 import { Baloo2_400Regular } from '@expo-google-fonts/baloo-2/400Regular';
@@ -25,6 +26,8 @@ const theme = {
 };
 
 export default function RootLayout() {
+
+  const { user } = useAuthStore();
 
   let [fontsLoaded, fontError] = useFonts({
     Baloo2_400Regular,
@@ -53,9 +56,15 @@ export default function RootLayout() {
             contentStyle: { backgroundColor: colors.grayscale.gray700 },
           }}
         >
-          <Stack.Screen name="(public)" />
-          <Stack.Screen name="(private)" />
           <Stack.Screen name="index" />
+
+          <Stack.Protected guard={!user}>
+            <Stack.Screen name="(public)" />
+          </Stack.Protected>
+
+          <Stack.Protected guard={!!user}>
+            <Stack.Screen name="(private)" />
+          </Stack.Protected>
         </Stack>
       </ThemeProvider>
     </GestureHandlerRootView>

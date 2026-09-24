@@ -10,7 +10,8 @@ export const HistoryView: FC<ReturnType<typeof useHistoryViewModel>> = ({
     matches,
     avarageTime,
     totalGames,
-    deleteScore
+    deleteScore,
+    logout
 }) => {
 
     return (
@@ -32,7 +33,7 @@ export const HistoryView: FC<ReturnType<typeof useHistoryViewModel>> = ({
                         paddingHorizontal: 24
                     }}
                     ListHeaderComponent={() => (
-                        <ListHeader avarageTime={avarageTime} totalGames={totalGames} />
+                        <ListHeader avarageTime={avarageTime} totalGames={totalGames} onLogout={logout} />
                     )}
                 />
             </View>
