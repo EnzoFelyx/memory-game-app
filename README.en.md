@@ -519,6 +519,12 @@ Known gaps, in the order I intend to close them:
 - **Record losses** — only wins make it into the history today, which makes the average time look better than it is.
 - **Distributable build** — EAS Build producing an APK for direct download, so nobody has to clone the repo just to see the app run.
 
+## Credits
+
+Some of the card icons come from [Icons8](https://icons8.com/). The remaining logos are trademarks of their respective owners and appear here for illustrative purposes only, in an educational, non-commercial project.
+
+The typeface is [Baloo 2](https://fonts.google.com/specimen/Baloo+2), distributed by Google Fonts under the SIL Open Font License.
+
 ## Author
 
 **Enzo Felix** — Mobile Developer

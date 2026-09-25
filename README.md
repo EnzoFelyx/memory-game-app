@@ -519,6 +519,12 @@ Lacunas conhecidas, na ordem em que pretendo resolvê-las:
 - **Registrar derrotas** — hoje só vitórias entram no histórico, o que torna a média de tempo otimista demais.
 - **Build distribuível** — EAS Build gerando um APK para download direto, dispensando clonar o repositório para ver o app rodando.
 
+## Créditos
+
+Parte dos ícones das cartas vem do [Icons8](https://icons8.com/). Os demais logos são marcas registradas de seus respectivos detentores e aparecem aqui apenas a título ilustrativo, num projeto educacional e sem fins comerciais.
+
+A tipografia é a [Baloo 2](https://fonts.google.com/specimen/Baloo+2), distribuída pelo Google Fonts sob a SIL Open Font License.
+
 ## Autor
 
 **Enzo Felix** — Mobile Developer
