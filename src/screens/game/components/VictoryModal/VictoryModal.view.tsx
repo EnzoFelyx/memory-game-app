@@ -30,7 +30,7 @@ export const VictoryModalView: FC<ReturnType<typeof useVictoryModalViewMode>> = 
             transparent
             visible={visible}
         >
-            <BlurView style={style.overlay}>
+            <BlurView intensity={10} tint="dark" style={style.overlay}>
                 <ConfettiEffect active={visible} />
 
                 <Animated.View style={[style.container, animatedStyle]}>
